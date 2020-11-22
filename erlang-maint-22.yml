@@ -1,0 +1,6 @@
+header:
+  version: 10
+local_conf_header:
+  meta-erlang: |
+    PREFERRED_VERSION_erlang = "22.3.4.12"
+    PREFERRED_VERSION_erlang-native = "22.3.4.12"

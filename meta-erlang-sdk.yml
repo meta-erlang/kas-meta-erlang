@@ -1,0 +1,6 @@
+header:
+  version: 10
+target:
+  - meta-erlang-toolchain
+task:
+  - populate_sdk
