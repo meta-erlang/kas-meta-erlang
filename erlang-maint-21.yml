@@ -4,3 +4,4 @@ local_conf_header:
   meta-erlang: |
     PREFERRED_VERSION_erlang = "21.1.4"
     PREFERRED_VERSION_erlang-native = "21.1.4"
+    PREFERRED_VERSION_nativesdk-erlang = "21.1.4"
