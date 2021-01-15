@@ -7,7 +7,7 @@ local_conf_header:
 repos:
   meta-erlang:
     url: "https://github.com/meta-erlang/meta-erlang"
-    refspec: cab7e3b8de1aa28485bfde09f96789df8f8d8fdb
+    refspec: cbf875d77b49324a94f27661dafe433a787a3d24
   poky:
     url: "https://git.yoctoproject.org/git/poky"
     refspec: b569f2a414cfe40cb03b68ecff65b7d38e5f9f73

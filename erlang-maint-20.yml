@@ -1,7 +1,7 @@
 header:
   version: 10
 local_conf_header:
-  meta-erlang: |
+  meta-erlang-erlang: |
     PREFERRED_VERSION_erlang = "20.0.5"
     PREFERRED_VERSION_erlang-native = "20.0.5"
     PREFERRED_VERSION_nativesdk-erlang = "20.0.5"
