@@ -37,17 +37,30 @@ machines:
 So, to use the above files the usual kas command line could be like this:
 
 ```bash
-KAS_WORK_DIR=dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:local-dev.yml:meta-erlang.yml:base.yml:qemuarm.yml
+KAS_WORK_DIR=$(pwd)/dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:meta-erlang.yml:base.yml:qemuarm.yml
 ```
 
-Where:
+Where, the environment variable _KAS\_WORK\_DIR_ points to a local directory where kas will clone the repositories and build.
 
-* the environment variable _KAS\_WORK\_DIR_ points to a local directory where kas will clone the repositories and build.
+Using kas and the canned configuration files, we can cover most of the combinations provide by meta-erlang layer.
 
-* _local-dev.yml_ is a special local file not present in this repository. And allows you to setup any other variables or override exist ones. Example:
+## development
+
+When developing meta-erlang, an additional file is created locally to hold all local configuration:
+
 ```
 header:
-  version: 10  
+  version: 10
+repos:
+  meta-erlang:
+    path: /home/joaohf/work/opensource/meta-erlang
+  poky:
+    path: /home/joaohf/work/opensource/poky
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
 local_conf_header:
   local: |
     DL_DIR = "/home/joaohf/work/yocto/downloads"
@@ -55,4 +68,8 @@ local_conf_header:
     CONNECTIVITY_CHECK_URIS = "https://www.google.com/"
 ```
 
-So, using kas and the canned configuration files, we can cover most of the combinations provide by meta-erlang layer.
+A typical kas command line is:
+
+```
+KAS_WORK_DIR=$(pwd)/devel kas shell local-dev.yml:meta-erlang.yml:base.yml:qemuarm.yml
+```
