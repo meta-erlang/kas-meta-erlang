@@ -3,7 +3,7 @@ header:
 distro: poky
 local_conf_header:
   dunfell: |
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.1.5/PATH;downloadfilename=PATH"
+    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.1.6/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
     url: "https://github.com/meta-erlang/meta-erlang"

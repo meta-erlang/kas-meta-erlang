@@ -11,6 +11,7 @@ default configuration:
 * base
 
 releases:
+* master
 * dunfell
 * gatesgarth
 
@@ -21,7 +22,10 @@ targets:
 erlang versions:
 
 * erlang-maint-23
-
+* erlang-maint-22
+* erlang-maint-21
+* erlang-maint-20
+  
 elixir versions:
 
 * elixir-1.11
@@ -34,10 +38,16 @@ machines:
 * qemuarm
 * qemuarm64
 
-So, to use the above files the usual kas command line could be like this:
+So, to use the above files the usual kas command line could be like one of the following:
 
 ```bash
 KAS_WORK_DIR=$(pwd)/dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:meta-erlang.yml:base.yml:qemuarm.yml
+
+KAS_WORK_DIR=$(pwd)/gatesgarth kas build erlang-maint-23.yml:elixir-1.11.yml:gatesgarth.yml:meta-erlang.yml:base.yml:qemuarm64.yml
+
+KAS_WORK_DIR=$(pwd)/master kas build erlang-maint-23.yml:elixir-1.11.yml:master.yml:meta-erlang.yml:base.yml:qemux86.yml
+
+KAS_WORK_DIR=$(pwd)/dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:meta-erlang.yml:base.yml:qemux86-64.yml
 ```
 
 Where, the environment variable _KAS\_WORK\_DIR_ points to a local directory where kas will clone the repositories and build.
@@ -68,7 +78,7 @@ local_conf_header:
     CONNECTIVITY_CHECK_URIS = "https://www.google.com/"
 ```
 
-A typical kas command line is:
+A typical kas command line for development purposes is like this:
 
 ```
 KAS_WORK_DIR=$(pwd)/devel kas shell local-dev.yml:meta-erlang.yml:base.yml:qemuarm.yml
