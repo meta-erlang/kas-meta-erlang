@@ -8,6 +8,14 @@ repos:
   meta-erlang:
     url: "https://github.com/meta-erlang/meta-erlang"
     refspec: dunfell
+  meta-openembedded:
+    url: http://git.openembedded.org/meta-openembedded
+    refspec: dunfell
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
     refspec: dunfell 
