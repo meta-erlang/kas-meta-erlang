@@ -1,0 +1,11 @@
+header:
+  version: 10
+local_conf_header:
+  local image_install: |
+    IMAGE_INSTALL_append_pn-core-image-minimal = " erlang erlang-modules livebook"
+    IMAGE_ROOTFS_EXTRA_SPACE_append_pn-core-image-minimal = "131072"
+target:
+  - erlang
+  - elixir
+  - rabbitmq-server
+  - core-image-minimal

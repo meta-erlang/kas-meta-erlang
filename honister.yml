@@ -2,15 +2,15 @@ header:
   version: 10
 distro: poky
 local_conf_header:
-  dunfell: |
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.1.11/PATH;downloadfilename=PATH"
+  honister: |
+    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.4/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
-    url: "git@github.com:meta-erlang/meta-erlang.git"
-    refspec: dunfell
+    url: "url: "git@github.com:meta-erlang/meta-erlang.git""
+    refspec: master
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
-    refspec: dunfell
+    refspec: honister
     layers:
       meta-oe:
       meta-python:
@@ -18,7 +18,7 @@ repos:
       meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: yocto-3.1.11
+    refspec: yocto-3.4
     layers:
       meta:
       meta-poky:

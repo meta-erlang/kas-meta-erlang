@@ -2,15 +2,15 @@ header:
   version: 10
 distro: poky
 local_conf_header:
-  dunfell: |
+  master: |
     SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/dev/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
-    url: "https://github.com/meta-erlang/meta-erlang"
-    refspec: master 
+    url: "git@github.com:meta-erlang/meta-erlang.git"
+    refspec: master
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: master 
+    refspec: master
     layers:
       meta:
       meta-poky:

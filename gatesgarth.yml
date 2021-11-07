@@ -3,14 +3,14 @@ header:
 distro: poky
 local_conf_header:
   gatesgarth: |
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.2.2/PATH;downloadfilename=PATH"
+    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.2.4/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
-    url: "https://github.com/meta-erlang/meta-erlang"
-    refspec: gatesgarth 
+    url: "url: "git@github.com:meta-erlang/meta-erlang.git""
+    refspec: gatesgarth
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: gatesgarth
+    refspec: yocto-3.2.4
     layers:
       meta:
       meta-poky:

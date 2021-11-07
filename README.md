@@ -14,6 +14,8 @@ releases:
 * master
 * dunfell
 * gatesgarth
+* hardknott
+* honister
 
 targets:
 * meta-erlang
@@ -21,13 +23,15 @@ targets:
 
 erlang versions:
 
+* erlang-maint-24
 * erlang-maint-23
 * erlang-maint-22
 * erlang-maint-21
 * erlang-maint-20
-  
+
 elixir versions:
 
+* elixir-1.12
 * elixir-1.11
 * elixir-1.10
 * elixir-1.9
@@ -41,18 +45,23 @@ machines:
 So, to use the above files the usual kas command line could be like one of the following:
 
 ```bash
-KAS_WORK_DIR=$(pwd)/dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:meta-erlang.yml:base.yml:qemuarm.yml
+KAS_WORK_DIR=build/honister KAS_BUILD_DIR=honister ~/work/opensource/kas/kas-container shell  erlang-maint-24.yml:elixir-1.12.yml:honister.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml
 
-KAS_WORK_DIR=$(pwd)/gatesgarth kas build erlang-maint-23.yml:elixir-1.11.yml:gatesgarth.yml:meta-erlang.yml:base.yml:qemuarm64.yml
-
-KAS_WORK_DIR=$(pwd)/master kas build erlang-maint-23.yml:elixir-1.11.yml:master.yml:meta-erlang.yml:base.yml:qemux86.yml
-
-KAS_WORK_DIR=$(pwd)/dunfell kas build erlang-maint-23.yml:elixir-1.11.yml:dunfell.yml:meta-erlang.yml:base.yml:qemux86-64.yml
 ```
 
 Where, the environment variable _KAS\_WORK\_DIR_ points to a local directory where kas will clone the repositories and build.
 
 Using kas and the canned configuration files, we can cover most of the combinations provide by meta-erlang layer.
+
+It is also possible to call _kas-container_ and run the YP/OE inside docker containers, like that:
+
+```bash
+KAS_WORK_DIR=build KAS_BUILD_DIR=honister kas-container shell erlang-maint-24.yml:elixir-1.12.yml:honister.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+
+KAS_WORK_DIR=build KAS_BUILD_DIR=hardknott kas-container shell erlang-maint-24.yml:elixir-1.12.yml:hardknott.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+
+KAS_WORK_DIR=build KAS_BUILD_DIR=dunfell kas-container shell erlang-maint-24.yml:elixir-1.12.yml:dunfell.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+```
 
 ## development
 
