@@ -1,14 +1,15 @@
 header:
   version: 10
-   
+
 local_conf_header:
   debug-tweaks: |
     EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
-    USER_CLASSES ?= "buildhistory buildstats image-mklibs image-prelink"
+    USER_CLASSES ?= "buildhistory buildstats image-prelink"
     BUILDHISTORY_COMMIT = "1"
     PACKAGE_CLASSES = "package_ipk"
     PATCHRESOLVE = "noop"
     INHERIT += "rm_work"
+    RM_WORK_EXCLUDE = "erlang erlang-native"
 
   diskmon: |
     BB_DISKMON_DIRS = "\
