@@ -2,6 +2,9 @@ header:
   version: 10
 
 local_conf_header:
+  qemu configuration: |
+    PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
+    PACKAGECONFIG:append:pn-qemu-system-native = " gtk+"
   debug-tweaks: |
     EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
     USER_CLASSES ?= "buildhistory buildstats image-prelink"
@@ -9,7 +12,7 @@ local_conf_header:
     PACKAGE_CLASSES = "package_ipk"
     PATCHRESOLVE = "noop"
     INHERIT += "rm_work"
-    RM_WORK_EXCLUDE = "erlang erlang-native"
+    RM_WORK_EXCLUDE = "erlang erlang-native nativesdk-erlang"
 
   diskmon: |
     BB_DISKMON_DIRS = "\
@@ -21,3 +24,5 @@ local_conf_header:
         ABORT,${DL_DIR},100M,1K \
         ABORT,${SSTATE_DIR},100M,1K \
         ABORT,/tmp,10M,1K"
+  general config |
+    SDKMACHINE = "x86_64"

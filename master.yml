@@ -3,7 +3,6 @@ header:
 distro: poky
 local_conf_header:
   master: |
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/dev/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
     url: "git@github.com:meta-erlang/meta-erlang.git"

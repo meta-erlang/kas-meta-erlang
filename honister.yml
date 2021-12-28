@@ -3,7 +3,6 @@ header:
 distro: poky
 local_conf_header:
   honister: |
-    SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.4/PATH;downloadfilename=PATH"
 repos:
   meta-erlang:
     url: "git@github.com:meta-erlang/meta-erlang.git"
@@ -18,7 +17,7 @@ repos:
       meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: yocto-3.4
+    refspec: honister
     layers:
       meta:
       meta-poky:

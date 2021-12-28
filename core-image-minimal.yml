@@ -3,6 +3,7 @@ header:
 local_conf_header:
   local image_install: |
     IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir"
+    IMAGE_INSTALL:append:pn-core-image-x11 = " erlang erlang-modules elixir"
     IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "131072"
 target:
   - core-image-minimal
