@@ -6,7 +6,7 @@ local_conf_header:
 repos:
   meta-erlang:
     url: "git@github.com:meta-erlang/meta-erlang.git"
-    refspec: master
+    refspec: honister
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
     refspec: honister
