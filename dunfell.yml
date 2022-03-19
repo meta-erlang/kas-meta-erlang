@@ -3,7 +3,7 @@ header:
 distro: poky
 repos:
   meta-erlang:
-    url: "git@github.com:meta-erlang/meta-erlang.git"
+    url: "https://github.com/meta-erlang/meta-erlang"
     refspec: dunfell
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
