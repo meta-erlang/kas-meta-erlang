@@ -7,7 +7,7 @@ local_conf_header:
     PACKAGECONFIG:append:pn-qemu-system-native = " gtk+"
   debug-tweaks: |
     EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
-    USER_CLASSES ?= "buildhistory buildstats image-prelink"
+    USER_CLASSES ?= "buildhistory buildstats"
     BUILDHISTORY_COMMIT = "1"
     PACKAGE_CLASSES = "package_ipk"
     PATCHRESOLVE = "noop"
