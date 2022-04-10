@@ -20,3 +20,6 @@ local_conf_header:
         ABORT,${DL_DIR},100M,1K \
         ABORT,${SSTATE_DIR},100M,1K \
         ABORT,/tmp,10M,1K"
+  general config: |
+    SDKMACHINE = "x86_64"
+    DL_DIR = "/work/yocto/downloads"
