@@ -7,6 +7,14 @@ repos:
   meta-erlang:
     url: "git@github.com:meta-erlang/meta-erlang.git"
     refspec: master
+  meta-openembedded:
+    url: http://git.openembedded.org/meta-openembedded
+    refspec: honister
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
     refspec: master
