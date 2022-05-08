@@ -1,0 +1,9 @@
+header:
+  version: 10
+
+local_conf_header:
+  local: |
+    DL_DIR = "/work/yocto/downloads"
+    CONNECTIVITY_CHECK_URIS = "https://www.google.com/"
+  do not remove erlang: |
+    RM_WORK_EXCLUDE += "erlang"
