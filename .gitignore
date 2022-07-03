@@ -1,8 +1,9 @@
 local-*.yml
 build
-yocto
-master
 dunfell
 gatesgarth
 hardknott
 honister
+yocto
+poky
+meta-*
