@@ -1,0 +1,94 @@
+mainmenu "meta-erlang Image Configuration"
+
+config KAS_BUILD_SYSTEM
+	string
+	default "openembedded"
+
+choice
+	prompt "Machine"
+	default MACHINE_QEMUX86_64
+
+config MACHINE_QEMUX86_64
+	bool "Use qemux86-64"
+	help
+	  Help.
+
+config MACHINE_QEMUX86
+	bool "Use qemux86"
+	help
+	  Help.
+endchoice
+
+choice
+	prompt "systemv"
+	default WITH_SYSTEMD
+
+config WITH_SYSTEMV
+	bool "Use systemv"
+	help
+	  Help.
+
+config WITH_SYSTEMD
+	bool "Use systemd"
+	help
+	  Help.
+
+endchoice
+
+choice
+	prompt "Erlang/OTP version"
+	default ERLANG_MAINT_25
+
+config ERLANG_MAINT_25
+	bool "Use Erlang 25"
+	help
+	  Help.
+
+config ERLANG_MAINT_24
+	bool "Use Erlang 24"
+	help
+	  Help.
+
+config ERLANG_MAINT_23
+	bool "Use Erlang 23"
+	help
+	  Help.
+
+endchoice
+
+config KAS_INCLUDE_MAIN
+	string
+	default "base.yml"
+
+config KAS_INCLUDE_RELEASE
+	string
+	default "release.yml"
+
+config KAS_INCLUDE_MACHINE
+	string
+	default "qemux86-64.yml" if MACHINE_QEMUX86_64
+	default "qemux86.yml" if MACHINE_QEMUX86
+
+
+config KAS_INCLUDE_ERLANG
+	string
+	default "erlang-maint-25.yml" if ERLANG_MAINT_25
+	default "erlang-maint-24.yml" if ERLANG_MAINT_24
+	default "erlang-maint-23.yml" if ERLANG_MAINT_23
+
+config KAS_INCLUDE_ELIXIR
+	string
+	default "elixir-1.13.yml"
+
+config KAS_INCLUDE_INIT
+	string
+	default "systemd.yml" if WITH_SYSTEMD
+	default "systemv.yml" if WITH_SYSTEMV
+
+comment "Image"
+
+config KAS_INCLUDE_LOCAL_IMAGE
+	string
+	default "local-image-install.yml"
+
+
