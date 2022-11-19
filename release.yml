@@ -6,10 +6,10 @@ local_conf_header:
 repos:
   meta-erlang:
     url: "https://github.com/meta-erlang/meta-erlang"
-    refspec: master
+    refspec: langdale
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
-    refspec: master
+    refspec: langdale
     layers:
       meta-oe:
       meta-python:
@@ -17,7 +17,7 @@ repos:
       meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: master
+    refspec: langdale
     layers:
       meta:
       meta-poky:

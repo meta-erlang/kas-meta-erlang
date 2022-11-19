@@ -4,6 +4,8 @@ config KAS_BUILD_SYSTEM
 	string
 	default "openembedded"
 
+menu "Machine"
+
 choice
 	prompt "Machine"
 	default MACHINE_QEMUX86_64
@@ -18,6 +20,10 @@ config MACHINE_QEMUX86
 	help
 	  Help.
 endchoice
+
+endmenu
+
+menu "Init management system"
 
 choice
 	prompt "systemv"
@@ -35,6 +41,12 @@ config WITH_SYSTEMD
 
 endchoice
 
+endmenu
+
+if ! IMAGES
+
+menu "Erlang Version"
+
 choice
 	prompt "Erlang/OTP version"
 	default ERLANG_MAINT_25
@@ -49,12 +61,81 @@ config ERLANG_MAINT_24
 	help
 	  Help.
 
-config ERLANG_MAINT_23
-	bool "Use Erlang 23"
-	help
-	  Help.
+endchoice
+
+endmenu
+
+menu "Elixir Version"
+
+choice
+	prompt "Elixir version"
+	default ELIXIR_1_13_4
+
+config ELIXIR_1_13_4
+        bool "Use Elixir 1.13.4"
+        help
+          Help.
 
 endchoice
+      
+endmenu
+
+endif # IMAGES
+
+menuconfig IMAGES
+       bool "Images"
+       help
+         Help.
+
+if IMAGES
+
+choice
+	prompt "Build Image"
+	default LOCAL_IMAGE_INSTALL
+
+config LOCAL_IMAGE_INSTALL
+        bool "Local development image"
+        help
+          Help.
+
+config LIVEBOOK_IMAGE
+        bool "livebook"
+        help
+          Help.
+
+config RABBITMQ_IMAGE
+        bool "rabbitmq"
+        help
+          Help.
+
+config EMQX_IMAGE
+        bool "emqx"
+        help
+          Help.
+
+config EJABBERD_IMAGE
+        bool "ejabberd"
+        help
+          Help.
+
+config VERNEMQ_IMAGE
+        bool "vernemq"
+        help
+          Help.
+
+config COUCHDB_IMAGE
+        bool "couchdb"
+        help
+          Help.
+
+config RIAK_IMAGE
+        bool "riak"
+        help
+          Help.
+
+endchoice
+
+endif # IMAGES
 
 config KAS_INCLUDE_MAIN
 	string
@@ -69,26 +150,31 @@ config KAS_INCLUDE_MACHINE
 	default "qemux86-64.yml" if MACHINE_QEMUX86_64
 	default "qemux86.yml" if MACHINE_QEMUX86
 
+if ! IMAGES
 
 config KAS_INCLUDE_ERLANG
 	string
 	default "erlang-maint-25.yml" if ERLANG_MAINT_25
 	default "erlang-maint-24.yml" if ERLANG_MAINT_24
-	default "erlang-maint-23.yml" if ERLANG_MAINT_23
 
 config KAS_INCLUDE_ELIXIR
 	string
-	default "elixir-1.13.yml"
+	default "elixir-1.14.yml"
+
+endif
 
 config KAS_INCLUDE_INIT
 	string
 	default "systemd.yml" if WITH_SYSTEMD
 	default "systemv.yml" if WITH_SYSTEMV
 
-comment "Image"
-
-config KAS_INCLUDE_LOCAL_IMAGE
+config KAS_INCLUDE_IMAGE
 	string
-	default "local-image-install.yml"
-
-
+	default "local-image-install.yml" if LOCAL_IMAGE_INSTALL
+        default "livebook-image.yml" if LIVEBOOK_IMAGE
+        default "rabbitmq-image.yml" if RABBITMQ_IMAGE
+        default "emqx-image.yml" if EMQX_IMAGE
+        default "ejabberd-image.yml" if EJABBERD_IMAGE
+        default "vernemq-image.yml" if VERNEMQ_IMAGE
+        default "couchdb-image.yml" if COUCHDB_IMAGE
+        default "riak-image.yml" if RIAK_IMAGE
