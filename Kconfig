@@ -69,10 +69,10 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_13_4
+	default ELIXIR_1_14
 
-config ELIXIR_1_13_4
-        bool "Use Elixir 1.13.4"
+config ELIXIR_1_14
+        bool "Use Elixir 1.14.x"
         help
           Help.
 
