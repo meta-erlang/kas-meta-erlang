@@ -78,7 +78,7 @@ config KAS_INCLUDE_ERLANG
 
 config KAS_INCLUDE_ELIXIR
 	string
-	default "elixir-1.13.yml"
+	default "elixir-1.14.yml"
 
 config KAS_INCLUDE_INIT
 	string
