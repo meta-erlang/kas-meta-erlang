@@ -16,4 +16,4 @@ menu:
 	${KAS} menu
 
 shell:
-	${KAS} shell ${update}
+	${KAS} --runtime-args "--privileged" shell ${update}

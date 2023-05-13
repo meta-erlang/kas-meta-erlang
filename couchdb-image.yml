@@ -2,7 +2,13 @@ header:
   version: 10
 
 local_conf_header:
+  preferred_version: |
+    PREFERRED_VERSION_erlang = "24.3.4.10"
+    PREFERRED_VERSION_erlang-native = "24.3.4.10"
+    PREFERRED_VERSION_nativesdk-erlang = "24.3.4.10"
+
   local image_install: |
-    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir"
-    IMAGE_INSTALLL:append:pn-core-image-x11 = " erlang erlang-modules elixir"
+    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir couchdb"
     IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "1048576"
+target:
+    - core-image-minimal

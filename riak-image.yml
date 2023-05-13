@@ -2,7 +2,13 @@ header:
   version: 10
 
 local_conf_header:
+  preferred_version: |
+    PREFERRED_VERSION_erlang = "25.2.3"
+    PREFERRED_VERSION_erlang-native = "25.2.3"
+    PREFERRED_VERSION_nativesdk-erlang = "25.2.3"
   local image_install: |
-    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir"
-    IMAGE_INSTALLL:append:pn-core-image-x11 = " erlang erlang-modules elixir"
+    DISTRO_FEATURES += " pam"
+    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir riak"
     IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "1048576"
+target:
+  - core-image-minimal
