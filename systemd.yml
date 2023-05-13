@@ -5,8 +5,6 @@ local_conf_header:
   local: |
     DL_DIR = "/work/yocto/downloads"
     CONNECTIVITY_CHECK_URIS = "https://www.google.com/"
-  do not remove erlang: |
-    RM_WORK_EXCLUDE += "erlang"
   # https://docs.yoctoproject.org/dev-manual/common-tasks.html?highlight=systemd#selecting-an-initialization-manager
   systemd only: |
     DISTRO_FEATURES:append = " systemd"

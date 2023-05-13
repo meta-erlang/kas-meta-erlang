@@ -49,15 +49,15 @@ menu "Erlang Version"
 
 choice
 	prompt "Erlang/OTP version"
-	default ERLANG_MAINT_25
+	default ERLANG_MAINT_26
 
-config ERLANG_MAINT_25
-	bool "Use Erlang 25"
+config ERLANG_MAINT_26
+	bool "Use Erlang 26"
 	help
 	  Help.
 
-config ERLANG_MAINT_24
-	bool "Use Erlang 24"
+config ERLANG_MAINT_25
+	bool "Use Erlang 25"
 	help
 	  Help.
 
@@ -154,8 +154,7 @@ if ! IMAGES
 
 config KAS_INCLUDE_ERLANG
 	string
-	default "erlang-maint-25.yml" if ERLANG_MAINT_25
-	default "erlang-maint-24.yml" if ERLANG_MAINT_24
+	default "erlang-maint-26.yml" if ERLANG_MAINT_26
 
 config KAS_INCLUDE_ELIXIR
 	string

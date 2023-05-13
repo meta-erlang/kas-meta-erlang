@@ -12,6 +12,8 @@ default configuration:
 
 releases:
 * master
+* mickledore
+* langdale
 * dunfell
 * gatesgarth
 * hardknott
