@@ -18,7 +18,7 @@ repos:
       meta-perl:
   poky:
     url: "https://git.yoctoproject.org/git/poky"
-    refspec: master
+    refspec: mickledore
     layers:
       meta:
       meta-poky:
