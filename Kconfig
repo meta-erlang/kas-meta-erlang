@@ -69,7 +69,12 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_14
+	default ELIXIR_1_15
+
+config ELIXIR_1_15
+        bool "Use Elixir 1.15.x"
+        help
+          Help.
 
 config ELIXIR_1_14
         bool "Use Elixir 1.14.x"
@@ -89,51 +94,85 @@ menuconfig IMAGES
 
 if IMAGES
 
-choice
-	prompt "Build Image"
-	default LOCAL_IMAGE_INSTALL
-
-config LOCAL_IMAGE_INSTALL
+config TARGET_LOCAL_IMAGE_INSTALL
         bool "Local development image"
         help
           Help.
 
-config LIVEBOOK_IMAGE
+config KAS_TARGET_LOCAL_IMAGE
+        string
+        depends on TARGET_LOCAL_IMAGE_IMAGE
+        default "multiconfig:qemux86-64:core-image-minimal"
+
+config TARGET_LIVEBOOK_IMAGE
         bool "livebook"
         help
           Help.
 
-config RABBITMQ_IMAGE
+config KAS_TARGET_LIVEBOOK_IMAGE
+        string
+        depends on TARGET_LIVEBOOK_IMAGE
+        default "multiconfig:qemux86-64-livebook:livebook-minimal"
+
+config TARGET_RABBITMQ_IMAGE
         bool "rabbitmq"
         help
           Help.
 
-config EMQX_IMAGE
-        bool "emqx"
-        help
-          Help.
+config KAS_TARGET_RABBITMQ_IMAGE
+        string
+        depends on TARGET_RABBITMQ_IMAGE
+        default "multiconfig:qemux86-64-rabbitmq:core-image-minimal"
 
-config EJABBERD_IMAGE
+config TARGET_EJABBERD_IMAGE
         bool "ejabberd"
         help
           Help.
 
-config VERNEMQ_IMAGE
+config KAS_TARGET_EJABBERD_IMAGE
+        string
+        depends on TARGET_EJABBERD_IMAGE
+        default "multiconfig:qemux86-64-ejabberd:core-image-minimal"
+
+config TARGET_VERNEMQ_IMAGE
         bool "vernemq"
         help
           Help.
 
-config COUCHDB_IMAGE
+config KAS_TARGET_VERNEMQ_IMAGE
+        string
+        depends on TARGET_VERNEMQ_IMAGE
+        default "multiconfig:qemux86-64-vernemq:core-image-minimal"
+
+config TARGET_COUCHDB_IMAGE
         bool "couchdb"
         help
           Help.
 
-config RIAK_IMAGE
+config KAS_TARGET_COUCHDB_IMAGE
+        string
+        depends on TARGET_COUCHDB_IMAGE
+        default "multiconfig:qemux86-64-couchdb:core-image-minimal"
+
+config TARGET_RIAK_IMAGE
         bool "riak"
         help
           Help.
 
-endchoice
+config KAS_TARGET_RIAK_IMAGE
+        string
+        depends on TARGET_RIAK_IMAGE
+        default "multiconfig:qemux86-64-riak:core-image-minimal"
+
+config TARGET_YAWS_IMAGE
+        bool "yaws"
+        help
+          Help.
+
+config KAS_TARGET_YAWS_IMAGE
+        string
+        depends on TARGET_YAWS_IMAGE
+        default "multiconfig:qemux86-64-yaws:core-image-minimal"
 
 endif # IMAGES
 
@@ -158,7 +197,7 @@ config KAS_INCLUDE_ERLANG
 
 config KAS_INCLUDE_ELIXIR
 	string
-	default "elixir-1.14.yml"
+	default "elixir-1.15.yml"
 
 endif
 
@@ -166,14 +205,3 @@ config KAS_INCLUDE_INIT
 	string
 	default "systemd.yml" if WITH_SYSTEMD
 	default "systemv.yml" if WITH_SYSTEMV
-
-config KAS_INCLUDE_IMAGE
-	string
-	default "local-image-install.yml" if LOCAL_IMAGE_INSTALL
-        default "livebook-image.yml" if LIVEBOOK_IMAGE
-        default "rabbitmq-image.yml" if RABBITMQ_IMAGE
-        default "emqx-image.yml" if EMQX_IMAGE
-        default "ejabberd-image.yml" if EJABBERD_IMAGE
-        default "vernemq-image.yml" if VERNEMQ_IMAGE
-        default "couchdb-image.yml" if COUCHDB_IMAGE
-        default "riak-image.yml" if RIAK_IMAGE

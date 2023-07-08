@@ -7,15 +7,25 @@ header:
   - base.yml
   - release.yml
   - qemux86-64.yml
-  - erlang-maint-25.yml
-  - elixir-1.14.yml
   - systemd.yml
   version: 13
 menu_configuration:
-  ELIXIR_1_14: true
-  ERLANG_MAINT_25: true
-  IMAGES: false
+  IMAGES: true
   MACHINE_QEMUX86: false
   MACHINE_QEMUX86_64: true
+  TARGET_COUCHDB_IMAGE: true
+  TARGET_EJABBERD_IMAGE: false
+  TARGET_LIVEBOOK_IMAGE: true
+  TARGET_LOCAL_IMAGE_INSTALL: false
+  TARGET_RABBITMQ_IMAGE: true
+  TARGET_RIAK_IMAGE: true
+  TARGET_VERNEMQ_IMAGE: false
+  TARGET_YAWS_IMAGE: true
   WITH_SYSTEMD: true
   WITH_SYSTEMV: false
+target:
+- multiconfig:qemux86-64-livebook:livebook-minimal
+- multiconfig:qemux86-64-rabbitmq:core-image-minimal
+- multiconfig:qemux86-64-couchdb:core-image-minimal
+- multiconfig:qemux86-64-riak:core-image-minimal
+- multiconfig:qemux86-64-yaws:core-image-minimal
