@@ -1,0 +1,19 @@
+header:
+  version: 10
+local_conf_header:
+  meta-erlang-erlang: |
+    PREFERRED_VERSION_erlang = "26.2.1"
+    PREFERRED_VERSION_erlang-native = "26.2.1"
+    PREFERRED_VERSION_nativesdk-erlang = "26.2.1"
+
+  meta-erlang-elixir: |
+    PREFERRED_VERSION_elixir = "1.15.7"
+    PREFERRED_VERSION_nativesdk-elixir = "1.15.7"
+
+  ptest image: |
+    EXTRA_IMAGE_FEATURES += "ptest-pkgs"
+    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules-dev   elixir links"
+    IMAGE_INSTALL:append:pn-core-image-x11 = " erlang erlang-modules elixir"
+    IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "5242880"
+target:
+  - core-image-minimal

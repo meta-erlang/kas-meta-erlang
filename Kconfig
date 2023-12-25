@@ -51,6 +51,11 @@ choice
 	prompt "Erlang/OTP version"
 	default ERLANG_MAINT_26
 
+config ERLANG_MASTER
+	bool "Use Erlang master"
+	help
+	  Help.
+
 config ERLANG_MAINT_26
 	bool "Use Erlang 26"
 	help
@@ -85,7 +90,7 @@ endchoice
       
 endmenu
 
-endif # IMAGES
+endif # ! IMAGES
 
 menuconfig IMAGES
        bool "Images"
@@ -93,6 +98,15 @@ menuconfig IMAGES
          Help.
 
 if IMAGES
+
+config TARGET_PTEST_IMAGE
+        bool "Image with ptest packages"
+        help
+          Help.
+
+config KAS_INCLUDE_PTEST_IMAGE
+        string
+        default "core-image-minimal-ptest.yml" if TARGET_PTEST_IMAGE
 
 config TARGET_LOCAL_IMAGE_INSTALL
         bool "Local development image"
