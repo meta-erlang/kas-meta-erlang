@@ -7,8 +7,9 @@ local_conf_header:
     PREFERRED_VERSION_nativesdk-erlang = "26.2.1"
 
   meta-erlang-elixir: |
-    PREFERRED_VERSION_elixir = "1.15.7"
-    PREFERRED_VERSION_nativesdk-elixir = "1.15.7"
+    PREFERRED_VERSION_elixir = "1.16.0"
+    PREFERRED_VERSION_elixir-native = "1.16.0"
+    PREFERRED_VERSION_nativesdk-elixir = "1.16.0"
 
   ptest image: |
     EXTRA_IMAGE_FEATURES += "ptest-pkgs"

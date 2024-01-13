@@ -4,6 +4,11 @@ config KAS_BUILD_SYSTEM
 	string
 	default "openembedded"
 
+menuconfig BEAMTOOLS
+        bool "Beamtools"
+        help
+          Help.
+
 menu "Machine"
 
 choice
@@ -74,7 +79,12 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_15
+	default ELIXIR_1_16
+
+config ELIXIR_1_16
+        bool "Use Elixir 1.16.x"
+        help
+          Help.
 
 config ELIXIR_1_15
         bool "Use Elixir 1.15.x"
@@ -108,15 +118,14 @@ config KAS_INCLUDE_PTEST_IMAGE
         string
         default "core-image-minimal-ptest.yml" if TARGET_PTEST_IMAGE
 
-config TARGET_LOCAL_IMAGE_INSTALL
+config TARGET_LOCAL_IMAGE
         bool "Local development image"
         help
           Help.
 
-config KAS_TARGET_LOCAL_IMAGE
+config KAS_INCLUDE_LOCAL_IMAGE
         string
-        depends on TARGET_LOCAL_IMAGE_IMAGE
-        default "multiconfig:qemux86-64:core-image-minimal"
+        default "core-image-minimal.yml" if TARGET_LOCAL_IMAGE
 
 config TARGET_LIVEBOOK_IMAGE
         bool "livebook"
@@ -211,7 +220,7 @@ config KAS_INCLUDE_ERLANG
 
 config KAS_INCLUDE_ELIXIR
 	string
-	default "elixir-1.15.yml"
+	default "elixir-1.16.yml"
 
 endif
 
@@ -219,3 +228,11 @@ config KAS_INCLUDE_INIT
 	string
 	default "systemd.yml" if WITH_SYSTEMD
 	default "systemv.yml" if WITH_SYSTEMV
+
+if BEAMTOOLS
+
+config KAS_INCLUDE_BEAMTOOLS
+        string
+        default "beamtools.yml"
+
+endif
