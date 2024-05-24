@@ -3,12 +3,7 @@ header:
 
 local_conf_header:
   local: |
-    DL_DIR = "/work/yocto/downloads"
     CONNECTIVITY_CHECK_URIS = "https://www.google.com/"
   # https://docs.yoctoproject.org/dev-manual/common-tasks.html?highlight=systemd#selecting-an-initialization-manager
   systemd only: |
-    DISTRO_FEATURES:append = " usrmerge systemd"
-    VIRTUAL-RUNTIME_init_manager = "systemd"
-    DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
-    VIRTUAL-RUNTIME_initscripts = ""
-
+    INIT_MANAGER = "systemd"

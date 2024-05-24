@@ -26,4 +26,3 @@ local_conf_header:
         HALT,/tmp,10M,1K"
   general config: |
     SDKMACHINE = "x86_64"
-    DL_DIR = "/work/yocto/downloads"

@@ -2,13 +2,13 @@ header:
   version: 10
 local_conf_header:
   local image_install: |
-    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir"
-    IMAGE_INSTALL:append:pn-core-image-x11 = " erlang erlang-modules elixir"
+    IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules elixir livebook"
+    IMAGE_INSTALL:append:pn-core-image-x11 = " erlang erlang-modules elixir livebook"
     IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "131072"
   meta-erlang-erlang: |
-    PREFERRED_VERSION_erlang = "26.2.1"
-    PREFERRED_VERSION_erlang-native = "26.2.1"
-    PREFERRED_VERSION_nativesdk-erlang = "26.2.1"
+    PREFERRED_VERSION_erlang = "26.2.5"
+    PREFERRED_VERSION_erlang-native = "26.2.5"
+    PREFERRED_VERSION_nativesdk-erlang = "26.2.5"
   meta-erlang-elixir: |
     PREFERRED_VERSION_elixir = "1.16%"
     PREFERRED_VERSION_elixir-native = "1.16%"

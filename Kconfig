@@ -54,10 +54,15 @@ menu "Erlang Version"
 
 choice
 	prompt "Erlang/OTP version"
-	default ERLANG_MAINT_26
+	default ERLANG_MAINT_27
 
 config ERLANG_MASTER
 	bool "Use Erlang master"
+	help
+	  Help.
+
+config ERLANG_MAINT_27
+	bool "Use Erlang 27"
 	help
 	  Help.
 
@@ -96,6 +101,11 @@ config ELIXIR_1_14
         help
           Help.
 
+config ELIXIR_1_13
+        bool "Use Elixir 1.13.x"
+        help
+          Help.
+
 endchoice
       
 endmenu
@@ -127,6 +137,27 @@ config KAS_INCLUDE_LOCAL_IMAGE
         string
         default "core-image-minimal.yml" if TARGET_LOCAL_IMAGE
 
+
+config TARGET_ERLANG_ELIXIR_IMAGE
+        bool "Erlang and Elixir"
+        help
+          Help.
+
+config KAS_TARGET_ERLANG_ELIXIR_IMAGE
+        string
+        depends on TARGET_ERLANG_ELIXIR_IMAGE
+        default "multiconfig:qemux86-64-erlang-elixir:core-image-minimal"
+
+config TARGET_WINGS_IMAGE
+        bool "wings"
+        help
+          Help.
+
+config KAS_TARGET_WINGS_IMAGE
+        string
+        depends on TARGET_WINGS_IMAGE
+        default "multiconfig:qemux86-64-wings:core-image-sato multiconfig:qemux86-64-wings:core-image-x11"
+
 config TARGET_LIVEBOOK_IMAGE
         bool "livebook"
         help
@@ -135,7 +166,7 @@ config TARGET_LIVEBOOK_IMAGE
 config KAS_TARGET_LIVEBOOK_IMAGE
         string
         depends on TARGET_LIVEBOOK_IMAGE
-        default "multiconfig:qemux86-64-livebook:livebook-minimal"
+        default "multiconfig:qemux86-64-livebook:livebook-image"
 
 config TARGET_RABBITMQ_IMAGE
         bool "rabbitmq"
@@ -216,11 +247,17 @@ if ! IMAGES
 
 config KAS_INCLUDE_ERLANG
 	string
+	default "erlang-maint-25.yml" if ERLANG_MAINT_25
 	default "erlang-maint-26.yml" if ERLANG_MAINT_26
+	default "erlang-maint-27.yml" if ERLANG_MAINT_27
 
 config KAS_INCLUDE_ELIXIR
 	string
-	default "elixir-1.16.yml"
+	default "elixir-1.16.yml" if ELIXIR_1_16
+	default "elixir-1.15.yml" if ELIXIR_1_15
+	default "elixir-1.14.yml" if ELIXIR_1_14
+	default "elixir-1.13.yml" if ELIXIR_1_13
+
 
 endif
 
