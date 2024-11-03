@@ -8,10 +8,17 @@ distro: poky
 repos:
   meta-raspberrypi:
     url: "https://github.com/agherzan/meta-raspberrypi"
-    refspec: honister
+    refspec: master
 
 local_conf_header:
+  fwup support: |
+    IMAGE_CLASSES += "image_types_fwup"
+    IMAGE_FSTYPES = "fwup"
+
   raspberrypi0wifi: |
     # extra configs https://meta-raspberrypi.readthedocs.io/en/latest/extra-build-config.html
     ENABLE_UART = "1"
-    RPI_USE_U_BOOT = "1"
+    # https://meta-raspberrypi.readthedocs.io/en/latest/extra-build-config.html#enable-usb-host-support
+    ENABLE_DWC2_PERIPHERAL = "1"
+
+    IMAGE_INSTALL:append = " raspi2go kernel-module-libcomposite kernel-module-g-ether kernel-module-dwc2"

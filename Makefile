@@ -1,10 +1,11 @@
-
+ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 YOCTO_RELEASE := master
 YOCTO_DIR := ${HOME}/work/yocto
 
 # From https://kas.readthedocs.io/en/latest/command-line.html#environment-variables
 export SSTATE_DIR := ${YOCTO_DIR}/sstate-cache/${YOCTO_RELEASE}
 export DL_DIR := ${YOCTO_DIR}/downloads
+export KAS_BUILD_DIR ?= ${ROOT_DIR}/build
 
 KAS := ${HOME}/work/opensource/kas/kas-container
 

@@ -1,9 +1,8 @@
+.vscode
+.config*
+yocto
 local-*.yml
 build
-dunfell
-gatesgarth
-hardknott
-honister
-yocto
+build-*
 poky
 meta-*

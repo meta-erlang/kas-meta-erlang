@@ -4,10 +4,12 @@ config KAS_BUILD_SYSTEM
 	string
 	default "openembedded"
 
+if ! IMAGES
 menuconfig BEAMTOOLS
         bool "Beamtools"
         help
           Help.
+endif
 
 menu "Machine"
 
@@ -24,9 +26,27 @@ config MACHINE_QEMUX86
 	bool "Use qemux86"
 	help
 	  Help.
+
+config MACHINE_QEMUARM
+	bool "Use qemuarm"
+	help
+	  Help.
+
+config MACHINE_QEMUARM_64
+	bool "Use qemarm-64"
+	help
+	  Help.
+
+config MACHINE_RPI0
+        bool "Use raspberrypi0-wifi"
+        help
+          Help.
+
 endchoice
 
 endmenu
+
+if ! BEAMTOOLS
 
 menu "Init management system"
 
@@ -47,6 +67,8 @@ config WITH_SYSTEMD
 endchoice
 
 endmenu
+
+endif
 
 if ! IMAGES
 
@@ -84,7 +106,17 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_16
+	default ELIXIR_1_17
+
+config ELIXIR_MAIN
+        bool "Use Elixir development"
+        help
+          Help.
+
+config ELIXIR_1_17
+        bool "Use Elixir 1.17.x"
+        help
+          Help.
 
 config ELIXIR_1_16
         bool "Use Elixir 1.16.x"
@@ -119,6 +151,15 @@ menuconfig IMAGES
 
 if IMAGES
 
+menu "Image features"
+
+menuconfig WITH_FWUP_IMAGE
+        bool "Add fwup image support"
+        help
+          Help.
+
+endmenu
+
 config TARGET_PTEST_IMAGE
         bool "Image with ptest packages"
         help
@@ -143,10 +184,30 @@ config TARGET_ERLANG_ELIXIR_IMAGE
         help
           Help.
 
-config KAS_TARGET_ERLANG_ELIXIR_IMAGE
+config KAS_TARGET_X86_64_ERLANG_ELIXIR_IMAGE
         string
         depends on TARGET_ERLANG_ELIXIR_IMAGE
         default "multiconfig:qemux86-64-erlang-elixir:core-image-minimal"
+
+config KAS_TARGET_X86_64_X32_ERLANG_ELIXIR_IMAGE
+        string
+        depends on TARGET_ERLANG_ELIXIR_IMAGE
+        default "multiconfig:qemux86-64-x32-erlang-elixir:core-image-minimal"
+
+config KAS_TARGET_X86_ERLANG_ELIXIR_IMAGE
+        string
+        depends on TARGET_ERLANG_ELIXIR_IMAGE
+        default "multiconfig:qemux86-erlang-elixir:core-image-minimal"
+
+config KAS_TARGET_ARM_ERLANG_ELIXIR_IMAGE
+        string
+        depends on TARGET_ERLANG_ELIXIR_IMAGE
+        default "multiconfig:qemuarm-erlang-elixir:core-image-minimal"
+
+config KAS_TARGET_ARM64_ERLANG_ELIXIR_IMAGE
+        string
+        depends on TARGET_ERLANG_ELIXIR_IMAGE
+        default "multiconfig:qemuarm64-erlang-elixir:core-image-minimal"
 
 config TARGET_WINGS_IMAGE
         bool "wings"
@@ -242,6 +303,9 @@ config KAS_INCLUDE_MACHINE
 	string
 	default "qemux86-64.yml" if MACHINE_QEMUX86_64
 	default "qemux86.yml" if MACHINE_QEMUX86
+	default "qemuarm.yml" if MACHINE_QEMUARM
+	default "qemuarm-64.yml" if MACHINE_QEMUARM_64
+        default "rpi.yml" if MACHINE_RPI0
 
 if ! IMAGES
 
@@ -250,9 +314,12 @@ config KAS_INCLUDE_ERLANG
 	default "erlang-maint-25.yml" if ERLANG_MAINT_25
 	default "erlang-maint-26.yml" if ERLANG_MAINT_26
 	default "erlang-maint-27.yml" if ERLANG_MAINT_27
+	default "erlang-master.yml" if ERLANG_MASTER
 
 config KAS_INCLUDE_ELIXIR
 	string
+	default "elixir-main.yml" if ELIXIR_MAIN
+	default "elixir-1.17.yml" if ELIXIR_1_17
 	default "elixir-1.16.yml" if ELIXIR_1_16
 	default "elixir-1.15.yml" if ELIXIR_1_15
 	default "elixir-1.14.yml" if ELIXIR_1_14
@@ -265,6 +332,13 @@ config KAS_INCLUDE_INIT
 	string
 	default "systemd.yml" if WITH_SYSTEMD
 	default "systemv.yml" if WITH_SYSTEMV
+
+if IMAGES
+
+config KAS_INCLUDE_FWUP
+        string
+        default "fwup.yml" if WITH_FWUP_IMAGE
+endif
 
 if BEAMTOOLS
 

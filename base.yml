@@ -12,7 +12,7 @@ local_conf_header:
     PACKAGE_CLASSES = "package_ipk"
     PATCHRESOLVE = "noop"
     INHERIT += "rm_work"
-    RM_WORK_EXCLUDE = "erlang erlang-native nativesdk-erlang"
+    RM_WORK_EXCLUDE = "elixir elixir-native nativesdk-elixir erlang erlang-native nativesdk-erlang"
 
   diskmon: |
     BB_DISKMON_DIRS = "\

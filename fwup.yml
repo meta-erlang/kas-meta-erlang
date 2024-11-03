@@ -1,0 +1,11 @@
+header:
+  version: 10
+local_conf_header:
+  fwup support: |
+    IMAGE_CLASSES += "image_types_fwup"
+    IMAGE_FSTYPES = "fwup"
+
+repos:
+  meta-fwup:
+    url: "https://github.com/fwup-home/meta-fwup/"
+    branch: master
