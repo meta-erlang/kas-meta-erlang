@@ -1,4 +1,3 @@
-.vscode
 .config*
 yocto
 local-*.yml

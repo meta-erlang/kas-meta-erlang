@@ -1,0 +1,6 @@
+header:
+  version: 10
+  includes:
+    - fwup.yml
+    - fwup-signed.yml
+    - rpi.yml

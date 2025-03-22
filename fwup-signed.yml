@@ -1,0 +1,7 @@
+header:
+  version: 10
+local_conf_header:
+  signed fwup: |
+    FWUP_SIGN_ENABLE = "1"
+    FWUP_PRIVATE_KEY_FILE = "/data-work/yocto/work/fwup/build/fwup-key.priv"
+    FWUP_PUBLIC_KEY_FILE = "/data-work/yocto/work/fwup/build/fwup-key.pub"

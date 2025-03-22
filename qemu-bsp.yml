@@ -1,0 +1,7 @@
+header:
+  version: 10
+
+repos:
+  meta-qemu-bsp:
+    url: "https://github.com/meta-erlang/meta-qemu-bsp/"
+    branch: master

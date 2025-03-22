@@ -2,7 +2,6 @@ header:
   version: 10
 local_conf_header:
   meta-erlang-erlang: |
-    PREFERRED_VERSION_erlang = "28.0-rc0+git"
-    PREFERRED_VERSION_erlang-native = "28.0-rc0+git"
-    PREFERRED_VERSION_nativesdk-erlang = "28.0-rc0+git"
-    SRCREV:pn-erlang = "${AUTOREV}"
+    PREFERRED_VERSION_erlang = "28.0-rc2+git"
+    PREFERRED_VERSION_erlang-native = "28.0-rc2+git"
+    PREFERRED_VERSION_nativesdk-erlang = "28.0-rc2+git"

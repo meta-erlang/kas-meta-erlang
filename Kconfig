@@ -17,6 +17,11 @@ choice
 	prompt "Machine"
 	default MACHINE_QEMUX86_64
 
+config MACHINE_QEMU_BSP
+        bool "Use qemu-bsp machines"
+        help
+          Help.
+
 config MACHINE_QEMUX86_64
 	bool "Use qemux86-64"
 	help
@@ -158,6 +163,11 @@ menuconfig WITH_FWUP_IMAGE
         help
           Help.
 
+menuconfig WITH_SIGNED_FWUP_IMAGE
+        bool "Add signed fwup image support"
+          help
+            Help.
+
 endmenu
 
 config TARGET_PTEST_IMAGE
@@ -264,6 +274,26 @@ config TARGET_COUCHDB_IMAGE
         help
           Help.
 
+config TARGET_NERVESHUB_QEMU_IMAGE
+        bool "NervesHub for QEMU based machines"
+        help
+          Help.
+
+config TARGET_NERVESHUB_RPI_IMAGE
+        bool "NervesHub for RPi based machines"
+        help
+          Help.
+
+config KAS_TARGET_NERVESHUB_QEMU_IMAGE
+        string
+        depends on TARGET_NERVESHUB_QEMU_IMAGE
+        default "multiconfig:qemuarm64-uboot-nerves-hub-link:core-image-base multiconfig:qemuarm-uboot-nerves-hub-link:core-image-base"
+
+config KAS_TARGET_NERVESHUB_RPI_IMAGE
+        string
+        depends on TARGET_NERVESHUB_RPI_IMAGE
+        default "multiconfig:raspberrypi0-wifi-nerves-hub-link:core-image-base multiconfig:raspberrypi4-64-nerves-hub-link:core-image-base multiconfig:raspberrypi5-nerves-hub-link:core-image-base"
+
 config KAS_TARGET_COUCHDB_IMAGE
         string
         depends on TARGET_COUCHDB_IMAGE
@@ -305,7 +335,7 @@ config KAS_INCLUDE_MACHINE
 	default "qemux86.yml" if MACHINE_QEMUX86
 	default "qemuarm.yml" if MACHINE_QEMUARM
 	default "qemuarm-64.yml" if MACHINE_QEMUARM_64
-        default "rpi.yml" if MACHINE_RPI0
+        default "qemu-bsp.yml" if MACHINE_QEMU_BSP
 
 if ! IMAGES
 
@@ -335,9 +365,21 @@ config KAS_INCLUDE_INIT
 
 if IMAGES
 
+config KAS_INCLUDE_NERVESHUB_QEMU_IMAGE
+        string
+        default "nerveshub-qemu.yml" if TARGET_NERVESHUB_QEMU_IMAGE
+
+config KAS_INCLUDE_NERVESHUB_RPI_IMAGE
+        string
+        default "nerveshub-rpi.yml" if TARGET_NERVESHUB_RPI_IMAGE
+
 config KAS_INCLUDE_FWUP
         string
         default "fwup.yml" if WITH_FWUP_IMAGE
+
+config KAS_INCLUDE_SIGNED_FWUP_IMAGE
+        string
+        default "fwup-signed.yml" if WITH_SIGNED_FWUP_IMAGE
 endif
 
 if BEAMTOOLS
