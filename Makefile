@@ -27,7 +27,7 @@ shell:
 		 -p5984:5984" \
 		shell ${update}
 
-shell_update:
+shell-update:
 	$(MAKE) shell UPDATE=1
 
 shell-auh:
