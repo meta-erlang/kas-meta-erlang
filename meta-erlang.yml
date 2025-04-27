@@ -1,5 +1,10 @@
 header:
   version: 10
 target:
+  - erlang-native
   - erlang
+  - nativesdk-erlang
+  - elixir-native
   - elixir
+  - nativesdk-elixir
+  

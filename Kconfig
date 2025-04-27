@@ -9,6 +9,11 @@ menuconfig BEAMTOOLS
         bool "Beamtools"
         help
           Help.
+
+menuconfig ERLANG_AND_ELIXIR
+        bool "Erlang and Elixir"
+          help
+            Help.
 endif
 
 menu "Machine"
@@ -111,10 +116,15 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_17
+	default ELIXIR_1_18
 
 config ELIXIR_MAIN
         bool "Use Elixir development"
+        help
+          Help.
+
+config ELIXIR_1_18
+        bool "Use Elixir 1.18.x"
         help
           Help.
 
@@ -349,6 +359,7 @@ config KAS_INCLUDE_ERLANG
 config KAS_INCLUDE_ELIXIR
 	string
 	default "elixir-main.yml" if ELIXIR_MAIN
+	default "elixir-1.18.yml" if ELIXIR_1_18
 	default "elixir-1.17.yml" if ELIXIR_1_17
 	default "elixir-1.16.yml" if ELIXIR_1_16
 	default "elixir-1.15.yml" if ELIXIR_1_15
@@ -387,5 +398,13 @@ if BEAMTOOLS
 config KAS_INCLUDE_BEAMTOOLS
         string
         default "beamtools.yml"
+
+endif
+
+if ERLANG_AND_ELIXIR
+
+config KAS_INCLUDE_ERLANG_AND_ELIXIR
+        string
+        default "meta-erlang.yml"
 
 endif

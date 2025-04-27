@@ -2,6 +2,7 @@ header:
   version: 10
 local_conf_header:
   meta-erlang-elixir: |
-    PREFERRED_VERSION_elixir = "1.15%"
-    PREFERRED_VERSION_elixir-native = "1.15%"
-    PREFERRED_VERSION_nativesdk-elixir = "1.15%"
+    ELIXIR_VERSION = "1.15.7"
+    PREFERRED_VERSION_elixir = "${ELIXIR_VERSION}"
+    PREFERRED_VERSION_elixir-native = "${ELIXIR_VERSION}"
+    PREFERRED_VERSION_nativesdk-elixir = "${ELIXIR_VERSION}"

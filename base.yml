@@ -6,7 +6,7 @@ local_conf_header:
     PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
     PACKAGECONFIG:append:pn-qemu-system-native = " gtk+"
   debug-tweaks: |
-    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+    EXTRA_IMAGE_FEATURES ?= "allow-empty-password allow-root-login empty-root-password post-install-logging"
     USER_CLASSES ?= "buildhistory buildstats"
     BUILDHISTORY_COMMIT = "1"
     PACKAGE_CLASSES = "package_ipk"
