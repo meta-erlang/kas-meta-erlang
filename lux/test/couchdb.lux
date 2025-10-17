@@ -1,0 +1,30 @@
+[doc Test if couchdb build and image is working]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+# TODO: add qemuarm64 back
+[global MACHINES=qemux86-64]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [loop machine $MACHINES]
+        [my config="base.yml:release.yml:$machine.yml:systemd.yml:couchdb.yml:testimage.yml"]
+        [progress $config]
+        [invoke kas-shell $config]
+
+        !bitbake -c cleansstate couchdb-image
+        [invoke wait-build-ok]
+
+        !bitbake couchdb-image
+        [invoke wait-build-ok]
+
+        !bitbake -c testimage couchdb-image
+        [invoke wait-build-ok]
+
+        [progress $config :OK]
+
+        !exit
+        [invoke ok]
+    [endloop]

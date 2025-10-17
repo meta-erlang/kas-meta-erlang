@@ -1,16 +1,9 @@
 header:
   version: 10
+  includes:
+    - elixir-1.18.yml
+    - erlang-maint-28.yml
 local_conf_header:
-  meta-erlang-erlang: |
-    PREFERRED_VERSION_erlang = "27%"
-    PREFERRED_VERSION_erlang-native = "27%"
-    PREFERRED_VERSION_nativesdk-erlang = "27%"
-
-  meta-erlang-elixir: |
-    PREFERRED_VERSION_elixir = "1.17%"
-    PREFERRED_VERSION_elixir-native = "1.17%"
-    PREFERRED_VERSION_nativesdk-elixir = "1.17%"
-
   ptest image: |
     EXTRA_IMAGE_FEATURES += "ptest-pkgs"
     IMAGE_INSTALL:append:pn-core-image-minimal = " erlang erlang-modules-dev elixir elixir-modules-dev links"

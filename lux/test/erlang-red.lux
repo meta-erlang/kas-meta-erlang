@@ -1,0 +1,29 @@
+[doc Test if erlang-red build and image is working]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+[global MACHINES=qemuarm64 qemux86-64]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [loop machine $MACHINES]
+        [my config="base.yml:release.yml:$machine.yml:systemd.yml:erlang-red.yml:testimage.yml"]
+        [progress $config]
+        [invoke kas-shell $config]
+
+        !bitbake -c cleansstate erlang-red-image
+        [invoke wait-build-ok]
+
+        !bitbake erlang-red-image
+        [invoke wait-build-ok]
+
+        !bitbake -c testimage erlang-red-image
+        [invoke wait-build-ok]
+
+        [progress $config :OK]
+
+        !exit
+        [invoke ok]
+    [endloop]

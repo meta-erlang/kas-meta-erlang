@@ -1,0 +1,7 @@
+header:
+  version: 10
+machine: qemuarm64-uboot
+
+local_conf_header:
+  with fwup image: |
+    IMAGE_FSTYPES += "fwup.qcow2"

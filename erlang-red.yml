@@ -1,0 +1,13 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-28.yml
+
+local_conf_header:
+  meta-erlang-erlang-red: |
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-erlang-red"
+#  qemu slirp options: |
+#    QB_SLIRP_OPT = "-netdev user,id=net0,hostfwd=tcp::8080-:8080,hostfwd=tcp::2222-:22"
+
+target:
+  - erlang-red-image

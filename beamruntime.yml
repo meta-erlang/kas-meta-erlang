@@ -1,0 +1,8 @@
+header:
+  version: 10
+target:
+  - beamruntime-tarball
+
+local_conf_header:
+  config beamruntime: |
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-beamruntime"

@@ -2,3 +2,11 @@ header:
   version: 10
 target:
   - beamtools-tarball
+
+local_conf_header:
+  config beamtools: |
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-beamtools"
+
+  enable sctp and odbc: |
+    PACKAGECONFIG:append:pn-nativesdk-erlang = " odbc"
+    PACKAGECONFIG:append:pn-nativesdk-erlang = " sctp"

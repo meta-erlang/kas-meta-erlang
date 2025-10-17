@@ -1,0 +1,42 @@
+# Call bitbake to build erlang and elixir recipes.
+[macro build-beam workdir config]
+    [my recipes=erlang-native erlang nativesdk-erlang elixir-native elixir nativesdk-elixir beam-image]
+
+    [invoke kas-shell $config]
+
+    !export NO_COLOR=1
+    [invoke build-ok]
+
+    !bitbake -c cleansstate $recipes
+    [invoke wait-build-ok]
+
+    !bitbake $recipes
+    [invoke wait-build-ok]
+
+    !bitbake -c build beam-image
+    [invoke build-ok]
+
+    !bitbake -c testimage beam-image
+    [invoke build-ok]
+
+    !exit 0
+    [invoke ok]
+[endmacro]
+
+# Build erlang and elixir for all machines using specific otp and elixir
+# versions.
+[macro build-erlang-elixir workdir machines otp elixir]
+    [invoke kas-prepare-env $workdir]
+
+    [loop machine $machines]
+        [my config="base.yml:release.yml:$machine.yml:erlang-maint-$otp.yml:elixir-$elixir.yml:systemd.yml:testimage.yml"]
+        [progress $config]
+        [invoke build-beam $workdir $config]
+        [progress $config :OK]
+    [endloop]
+[endmacro]
+
+# [macro bitbake args]
+#     !bitbake $args
+#     [invoke build-ok]
+# [endmacro]

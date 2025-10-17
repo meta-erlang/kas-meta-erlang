@@ -24,5 +24,9 @@ local_conf_header:
         HALT,${DL_DIR},100M,1K \
         HALT,${SSTATE_DIR},100M,1K \
         HALT,/tmp,10M,1K"
-  general config: |
-    SDKMACHINE = "x86_64"
+  sdk machine config: |
+    SDKMACHINE ?= "x86_64"
+
+  remove version-going-backwards: |
+    # not relevant for meta-erlang tests
+    ERROR_QA:remove = "version-going-backwards"

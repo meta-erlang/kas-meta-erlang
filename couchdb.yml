@@ -1,0 +1,15 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-27.yml
+    - elixir-1.17.yml
+
+local_conf_header:
+  meta-erlang-couchdb: |
+    IMAGE_ROOTFS_EXTRA_SPACE = "256000"
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-couchdb"
+  qemu options: |
+    QB_MEM ?= "-m 1024"
+
+target:
+  - couchdb-image

@@ -1,0 +1,29 @@
+[doc Test if beamruntime is able to produce a runtime system]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+# with libc
+[global beamtools_cfg_libc="base.yml:release.yml:qemuarm64.yml:erlang-maint-28.yml:elixir-1.18.yml:beamruntime.yml:locales.yml:beamtools_x86_64.yml:beamtools_no_opengl.yml"]
+
+# with musl
+[global beamtools_cfg_musl="base.yml:release.yml:qemuarm64.yml:erlang-maint-28.yml:elixir-1.18.yml:tclib_musl.yml:beamruntime.yml:locales.yml:beamtools_x86_64.yml:beamtools_no_opengl.yml"]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [invoke kas-shell $beamtools_cfg_libc]
+
+    !bitbake beamruntime-tarball
+    [invoke wait-build-ok]
+
+    !exit
+    [invoke ok]
+
+    [invoke kas-shell $beamtools_cfg_musl]
+
+    !bitbake beamruntime-tarball
+    [invoke wait-build-ok]
+
+    !exit
+    [invoke ok]

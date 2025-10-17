@@ -1,0 +1,51 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-28.yml
+    - elixir-1.18.yml
+    - fwup.yml
+    - fwup-signed.yml
+
+repos:
+  meta-nerves-hub:
+    url: "git@github.com:joaohf/meta-nerves-hub"
+    branch: master
+
+local_conf_header:
+  nerveshub link config: |
+    NERVES_HUB_LINK = "\
+        erlang \
+        erlang-modules-dev \
+        elixir \
+        elixir-modules-dev \
+        nerves-hub-link \
+        fwup-fw-env \
+        \
+        connman \
+        connman-client \
+        "
+
+    PACKAGECONFIG:remove:pn-connman = "3g bluez"
+
+    IMAGE_CLASSES += "image_types_fwup"
+    IMAGE_FSTYPES = "fwup fwup.bmap"
+
+    IMAGE_INSTALL:append = " ${NERVES_HUB_LINK} util-linux"
+
+    IMAGE_FEATURES:append = " ssh-server-openssh"
+
+    #IMAGE_ROOTFS_EXTRA_SPACE:pn-core-image-minimal = "131072"
+
+    TMPDIR = "${TOPDIR}/tmp-${MACHINE}-${TCLIBC}-nerves-hub-link"
+
+
+    # Nerves Hub product name
+    FWUP_META_PRODUCT = "YoctoFwup"
+
+    # 1st build
+    FWUP_META_VERSION = "1.0.1"
+    # 2nd build
+    #FWUP_META_VERSION = "1.2.0"
+
+target:
+  - core-image-base

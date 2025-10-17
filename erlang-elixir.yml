@@ -1,0 +1,12 @@
+header:
+  version: 10
+  includes:
+    - elixir-1.18.yml
+    - erlang-maint-28.yml
+
+local_conf_header:
+  meta-erlang-yaws: |
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-erlang-elixir"
+
+target:
+  - beam-image

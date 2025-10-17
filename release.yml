@@ -4,13 +4,34 @@ distro: poky
 local_conf_header:
   master: |
 repos:
+  bitbake:
+    url: https://git.openembedded.org/bitbake
+    branch: master
+    layers:
+      bitbake: disabled
+
+  core:
+    url: https://git.openembedded.org/openembedded-core
+    branch: master
+    layers:
+      meta:
+
+  meta-yocto:
+    url: https://git.yoctoproject.org/meta-yocto
+    branch: master
+    layers:
+      meta-poky:
+      meta-yocto-bsp:
+
   meta-axon:
     path: meta-axon
     branch: master
+
   meta-erlang:
     #url: "https://github.com/meta-erlang/meta-erlang"
     path: meta-erlang
     branch: master
+
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
     branch: master
@@ -19,10 +40,3 @@ repos:
       meta-python:
       meta-networking:
       meta-perl:
-  poky:
-    url: "https://git.yoctoproject.org/git/poky"
-    branch: master
-    layers:
-      meta:
-      meta-poky:
-      meta-yocto-bsp:

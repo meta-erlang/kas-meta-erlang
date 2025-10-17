@@ -4,11 +4,105 @@ config KAS_BUILD_SYSTEM
 	string
 	default "openembedded"
 
+menuconfig TESTIMAGE
+        bool "Enable Testimage"
+        help
+          Help.
+
+if ! IMAGES
+menuconfig BEAMRUNTIME
+        bool "Beamruntime"
+        help
+          Help.
+
+if BEAMRUNTIME
+
+choice
+	prompt "Use OpenGL"
+	default BEAMRUNTIME_WITH_OPENGL
+
+config BEAMRUNTIME_WITH_OPENGL
+	bool "Enable opengl via DISTRO_FEATURES"
+	help
+	  Help.
+
+config BEAMRUNTIME_WITHOUT_OPENGL
+	bool "Disable opengl via DISTRO_FEATURES"
+	help
+	  Help.
+
+endchoice
+
+choice
+	prompt "TCLIB"
+	default BEAMRUNTIME_WITH_TCLIB_LIBC
+
+config BEAMRUNTIME_WITH_TCLIB_LIBC
+	bool "Use libc"
+	help
+	  Help.
+
+config BEAMRUNTIME_WITH_TCLIB_MUSL
+	bool "Use musl"
+	help
+	  Help.
+
+endchoice
+
+config BEAMRUNTIME_REDUCED_LOCALES
+        bool "Reduced locales support"
+        help
+          Help.
+
+endif
+
+endif
+
 if ! IMAGES
 menuconfig BEAMTOOLS
         bool "Beamtools"
         help
           Help.
+
+if BEAMTOOLS
+
+choice
+	prompt "Use OpenGL"
+	default BEAMTOOLS_WITH_OPENGL
+
+config BEAMTOOLS_WITH_OPENGL
+	bool "Enable opengl via DISTRO_FEATURES"
+	help
+	  Help.
+
+config BEAMTOOLS_WITHOUT_OPENGL
+	bool "Disable opengl via DISTRO_FEATURES"
+	help
+	  Help.
+
+endchoice
+
+endif
+
+if BEAMTOOLS || BEAMRUNTIME
+
+choice
+        prompt "SDK Machine"
+        default SDK_MACHINE_X86_64
+
+config SDK_MACHINE_X86_64
+        bool "Use x86_64 as SDKMACHINE"
+        help
+          Help.
+
+config SDK_MACHINE_AARM64
+        bool "Use aarm64 as SDKMACHINE"
+        help
+          Help.
+
+endchoice
+
+endif
 
 menuconfig ERLANG_AND_ELIXIR
         bool "Erlang and Elixir"
@@ -32,8 +126,28 @@ config MACHINE_QEMUX86_64
 	help
 	  Help.
 
+config MACHINE_QEMUX86_64_X32
+	bool "Use qemux86-64 x32"
+	help
+	  Help.
+
 config MACHINE_QEMUX86
 	bool "Use qemux86"
+	help
+	  Help.
+
+config MACHINE_QEMUMIPS64
+	bool "Use qemumips64"
+	help
+	  Help.
+
+config MACHINE_QEMURISCV64
+	bool "Use qemuriscv64"
+	help
+	  Help.
+
+config MACHINE_QEMURISCV32
+	bool "Use qemuriscv32"
 	help
 	  Help.
 
@@ -47,8 +161,28 @@ config MACHINE_QEMUARM_64
 	help
 	  Help.
 
+config MACHINE_QEMUARM_UBOOT
+	bool "Use qemarm with uboot"
+	help
+	  Help.
+
+config MACHINE_QEMUARM64_UBOOT
+	bool "Use qemarm-64 with uboot"
+	help
+	  Help.
+
 config MACHINE_RPI0
         bool "Use raspberrypi0-wifi"
+        help
+          Help.
+
+config MACHINE_RPI4_64
+        bool "Use raspberrypi4-64"
+        help
+          Help.
+
+config MACHINE_RPI5
+        bool "Use raspberrypi5"
         help
           Help.
 
@@ -56,7 +190,7 @@ endchoice
 
 endmenu
 
-if ! BEAMTOOLS
+if ! BEAMTOOLS || BEAMRUNTIME
 
 menu "Init management system"
 
@@ -86,10 +220,15 @@ menu "Erlang Version"
 
 choice
 	prompt "Erlang/OTP version"
-	default ERLANG_MAINT_27
+	default ERLANG_MAINT_28
 
 config ERLANG_MASTER
 	bool "Use Erlang master"
+	help
+	  Help.
+
+config ERLANG_MAINT_28
+	bool "Use Erlang 28"
 	help
 	  Help.
 
@@ -168,119 +307,89 @@ if IMAGES
 
 menu "Image features"
 
-menuconfig WITH_FWUP_IMAGE
+config WITH_FWUP_IMAGE
         bool "Add fwup image support"
         help
           Help.
 
-menuconfig WITH_SIGNED_FWUP_IMAGE
+config WITH_SIGNED_FWUP_IMAGE
         bool "Add signed fwup image support"
           help
             Help.
-
-endmenu
 
 config TARGET_PTEST_IMAGE
         bool "Image with ptest packages"
         help
           Help.
 
-config KAS_INCLUDE_PTEST_IMAGE
-        string
-        default "core-image-minimal-ptest.yml" if TARGET_PTEST_IMAGE
+endmenu
+
+choice
+	prompt "Images"
+	default TARGET_ERLANG_ELIXIR_IMAGE
 
 config TARGET_LOCAL_IMAGE
-        bool "Local development image"
+        bool "Local development image if Erlang and Elixir"
         help
           Help.
-
-config KAS_INCLUDE_LOCAL_IMAGE
-        string
-        default "core-image-minimal.yml" if TARGET_LOCAL_IMAGE
-
 
 config TARGET_ERLANG_ELIXIR_IMAGE
         bool "Erlang and Elixir"
         help
           Help.
 
-config KAS_TARGET_X86_64_ERLANG_ELIXIR_IMAGE
-        string
-        depends on TARGET_ERLANG_ELIXIR_IMAGE
-        default "multiconfig:qemux86-64-erlang-elixir:core-image-minimal"
-
-config KAS_TARGET_X86_64_X32_ERLANG_ELIXIR_IMAGE
-        string
-        depends on TARGET_ERLANG_ELIXIR_IMAGE
-        default "multiconfig:qemux86-64-x32-erlang-elixir:core-image-minimal"
-
-config KAS_TARGET_X86_ERLANG_ELIXIR_IMAGE
-        string
-        depends on TARGET_ERLANG_ELIXIR_IMAGE
-        default "multiconfig:qemux86-erlang-elixir:core-image-minimal"
-
-config KAS_TARGET_ARM_ERLANG_ELIXIR_IMAGE
-        string
-        depends on TARGET_ERLANG_ELIXIR_IMAGE
-        default "multiconfig:qemuarm-erlang-elixir:core-image-minimal"
-
-config KAS_TARGET_ARM64_ERLANG_ELIXIR_IMAGE
-        string
-        depends on TARGET_ERLANG_ELIXIR_IMAGE
-        default "multiconfig:qemuarm64-erlang-elixir:core-image-minimal"
-
 config TARGET_WINGS_IMAGE
         bool "wings"
         help
           Help.
-
-config KAS_TARGET_WINGS_IMAGE
-        string
-        depends on TARGET_WINGS_IMAGE
-        default "multiconfig:qemux86-64-wings:core-image-sato multiconfig:qemux86-64-wings:core-image-x11"
 
 config TARGET_LIVEBOOK_IMAGE
         bool "livebook"
         help
           Help.
 
-config KAS_TARGET_LIVEBOOK_IMAGE
-        string
-        depends on TARGET_LIVEBOOK_IMAGE
-        default "multiconfig:qemux86-64-livebook:livebook-image"
-
 config TARGET_RABBITMQ_IMAGE
         bool "rabbitmq"
         help
           Help.
 
-config KAS_TARGET_RABBITMQ_IMAGE
-        string
-        depends on TARGET_RABBITMQ_IMAGE
-        default "multiconfig:qemux86-64-rabbitmq:core-image-minimal"
-
-config TARGET_EJABBERD_IMAGE
-        bool "ejabberd"
-        help
-          Help.
-
-config KAS_TARGET_EJABBERD_IMAGE
-        string
-        depends on TARGET_EJABBERD_IMAGE
-        default "multiconfig:qemux86-64-ejabberd:core-image-minimal"
-
-config TARGET_VERNEMQ_IMAGE
-        bool "vernemq"
-        help
-          Help.
-
-config KAS_TARGET_VERNEMQ_IMAGE
-        string
-        depends on TARGET_VERNEMQ_IMAGE
-        default "multiconfig:qemux86-64-vernemq:core-image-minimal"
+#config TARGET_EJABBERD_IMAGE
+#        bool "ejabberd"
+#        help
+#          Help.
+#
+#config KAS_TARGET_EJABBERD_IMAGE
+#        string
+#        depends on TARGET_EJABBERD_IMAGE
+#        default "multiconfig:qemux86-64-ejabberd:core-image-minimal"
+#
+#config TARGET_VERNEMQ_IMAGE
+#        bool "vernemq"
+#        help
+#          Help.
+#
+#config KAS_TARGET_VERNEMQ_IMAGE
+#        string
+#        depends on TARGET_VERNEMQ_IMAGE
+#        default "multiconfig:qemux86-64-vernemq:core-image-minimal"
 
 config TARGET_COUCHDB_IMAGE
         bool "couchdb"
+        help
+          Help.
+
+config TARGET_RIAK_IMAGE
+        bool "riak"
+        help
+          Help.
+
+config TARGET_YAWS_IMAGE
+        bool "yaws"
+        help
+          Help.
+
+config TARGET_ERLANG_RED_IMAGE
+        bool "Erlang-Red"
         help
           Help.
 
@@ -294,40 +403,7 @@ config TARGET_NERVESHUB_RPI_IMAGE
         help
           Help.
 
-config KAS_TARGET_NERVESHUB_QEMU_IMAGE
-        string
-        depends on TARGET_NERVESHUB_QEMU_IMAGE
-        default "multiconfig:qemuarm64-uboot-nerves-hub-link:core-image-base multiconfig:qemuarm-uboot-nerves-hub-link:core-image-base"
-
-config KAS_TARGET_NERVESHUB_RPI_IMAGE
-        string
-        depends on TARGET_NERVESHUB_RPI_IMAGE
-        default "multiconfig:raspberrypi0-wifi-nerves-hub-link:core-image-base multiconfig:raspberrypi4-64-nerves-hub-link:core-image-base multiconfig:raspberrypi5-nerves-hub-link:core-image-base"
-
-config KAS_TARGET_COUCHDB_IMAGE
-        string
-        depends on TARGET_COUCHDB_IMAGE
-        default "multiconfig:qemux86-64-couchdb:core-image-minimal"
-
-config TARGET_RIAK_IMAGE
-        bool "riak"
-        help
-          Help.
-
-config KAS_TARGET_RIAK_IMAGE
-        string
-        depends on TARGET_RIAK_IMAGE
-        default "multiconfig:qemux86-64-riak:core-image-minimal"
-
-config TARGET_YAWS_IMAGE
-        bool "yaws"
-        help
-          Help.
-
-config KAS_TARGET_YAWS_IMAGE
-        string
-        depends on TARGET_YAWS_IMAGE
-        default "multiconfig:qemux86-64-yaws:core-image-minimal"
+endchoice
 
 endif # IMAGES
 
@@ -343,9 +419,18 @@ config KAS_INCLUDE_MACHINE
 	string
 	default "qemux86-64.yml" if MACHINE_QEMUX86_64
 	default "qemux86.yml" if MACHINE_QEMUX86
+	default "qemumips64.yml" if MACHINE_QEMUMIPS64
+	default "qemuriscv64.yml" if MACHINE_QEMURISCV64
+	default "qemuriscv32.yml" if MACHINE_QEMURISCV32
 	default "qemuarm.yml" if MACHINE_QEMUARM
-	default "qemuarm-64.yml" if MACHINE_QEMUARM_64
+	default "qemuarm64.yml" if MACHINE_QEMUARM_64
+        default "qemux86-64-x32.yml" if MACHINE_QEMUX86_64_X32
+        default "rpi0.yml" if MACHINE_RPI0
+        default "rpi4-64.yml" if MACHINE_RPI4_64
+        default "rpi5.yml" if MACHINE_RPI5
         default "qemu-bsp.yml" if MACHINE_QEMU_BSP
+        default "qemuarm-uboot.yml" if MACHINE_QEMUARM_UBOOT
+        default "qemuarm64-uboot.yml" if MACHINE_QEMUARM64_UBOOT
 
 if ! IMAGES
 
@@ -354,6 +439,7 @@ config KAS_INCLUDE_ERLANG
 	default "erlang-maint-25.yml" if ERLANG_MAINT_25
 	default "erlang-maint-26.yml" if ERLANG_MAINT_26
 	default "erlang-maint-27.yml" if ERLANG_MAINT_27
+	default "erlang-maint-28.yml" if ERLANG_MAINT_28
 	default "erlang-master.yml" if ERLANG_MASTER
 
 config KAS_INCLUDE_ELIXIR
@@ -376,6 +462,14 @@ config KAS_INCLUDE_INIT
 
 if IMAGES
 
+config KAS_INCLUDE_PTEST_IMAGE
+        string
+        default "core-image-minimal-ptest.yml" if TARGET_PTEST_IMAGE
+
+config KAS_INCLUDE_LOCAL_IMAGE
+        string
+        default "core-image-minimal.yml" if TARGET_LOCAL_IMAGE
+
 config KAS_INCLUDE_NERVESHUB_QEMU_IMAGE
         string
         default "nerveshub-qemu.yml" if TARGET_NERVESHUB_QEMU_IMAGE
@@ -391,6 +485,47 @@ config KAS_INCLUDE_FWUP
 config KAS_INCLUDE_SIGNED_FWUP_IMAGE
         string
         default "fwup-signed.yml" if WITH_SIGNED_FWUP_IMAGE
+
+config KAS_INCLUDE_ERLANG_ELIXIR
+        string
+        default "erlang-elixir.yml" if TARGET_ERLANG_ELIXIR_IMAGE
+
+config KAS_INCLUDE_ERLANG_RED
+        string
+        default "erlang-red.yml" if TARGET_ERLANG_RED_IMAGE
+
+config KAS_INCLUDE_RABBITMQ
+        string
+        default "rabbitmq.yml" if TARGET_RABBITMQ_IMAGE
+
+config KAS_INCLUDE_COUCHDB
+        string
+        default "couchdb.yml" if TARGET_COUCHDB_IMAGE
+
+config KAS_INCLUDE_RIAK
+        string
+        default "riak.yml" if TARGET_RIAK_IMAGE
+
+config KAS_INCLUDE_LIVEBOOK
+        string
+        default "livebook.yml" if TARGET_LIVEBOOK_IMAGE
+
+config KAS_INCLUDE_YAWS
+        string
+        default "yaws.yml" if TARGET_YAWS_IMAGE
+
+config KAS_INCLUDE_WINGS
+        string
+        default "wings.yml" if TARGET_WINGS_IMAGE
+
+config KAS_INCLUDE_NERVESHUB_QEMU_IMAGE
+        string
+        default "nerveshub-link.yml" if TARGET_NERVESHUB_QEMU_IMAGE
+
+config KAS_INCLUDE_NERVESHUB_RPI_IMAGE
+        string
+        default "nerveshub-link.yml" if TARGET_NERVESHUB_RPI_IMAGE
+
 endif
 
 if BEAMTOOLS
@@ -398,6 +533,62 @@ if BEAMTOOLS
 config KAS_INCLUDE_BEAMTOOLS
         string
         default "beamtools.yml"
+
+config KAS_INCLUDE_SDK_MACHINE_X86_64
+        string
+        default "beamtools_x86_64.yml" if SDK_MACHINE_X86_64
+
+config KAS_INCLUDE_SDK_MACHINE_AARM64
+        string
+        default "beamtools_aarm64.yml" if SDK_MACHINE_AARM64
+
+config KAS_INCLUDE_BEAMTOOLS_WITH_OPENGL
+	string
+	default "beamtools_opengl.yml" if BEAMTOOLS_WITH_OPENGL
+
+config KAS_INCLUDE_BEAMTOOLS_WITHOUT_OPENGL
+	string
+	default "beamtools_no_opengl.yml" if BEAMTOOLS_WITHOUT_OPENGL
+
+endif
+
+if BEAMRUNTIME
+
+config KAS_INCLUDE_BEAMRUNTIME
+        string
+        default "beamruntime.yml"
+
+config KAS_INCLUDE_SDK_MACHINE_X86_64
+        string
+        default "beamtools_x86_64.yml" if SDK_MACHINE_X86_64
+
+config KAS_INCLUDE_SDK_MACHINE_AARM64
+        string
+        default "beamtools_aarm64.yml" if SDK_MACHINE_AARM64
+
+config KAS_INCLUDE_BEAMRUNTIME_WITH_OPENGL
+	string
+	default "beamtools_opengl.yml" if BEAMRUNTIME_WITH_OPENGL
+
+config KAS_INCLUDE_BEAMRUNTIME_WITHOUT_OPENGL
+	string
+	default "beamtools_no_opengl.yml" if BEAMRUNTIME_WITHOUT_OPENGL
+
+config KAS_INCLUDE_BEAMRUNTIME_REDUCED_LOCALES
+        string
+        default "locales.yml" if BEAMRUNTIME_REDUCED_LOCALES
+
+config KAS_INCLUDE_BEAMRUNTIME_WITH_TCLIB_MUSL
+        string
+        default "tclib_musl.yml" if BEAMRUNTIME_WITH_TCLIB_MUSL
+
+endif
+
+if TESTIMAGE
+
+config KAS_INCLUDE_TESTIMAGE
+        string
+        default "testimage.yml"
 
 endif
 

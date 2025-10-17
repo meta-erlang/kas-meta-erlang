@@ -1,0 +1,13 @@
+[doc Test Erlang/OTP and Elixir build]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+[include ../support/luxinc/meta_erlang.luxinc]
+
+[global OTP=25]
+[global ELIXIR=1.18]
+[global MACHINES=qemuarm64 qemux86-64]
+[global WORKDIR=../../]
+
+[shell cmd]
+    [invoke build-erlang-elixir $WORKDIR $MACHINES $OTP $ELIXIR]

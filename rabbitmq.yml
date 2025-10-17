@@ -1,0 +1,15 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-27.yml
+    - elixir-1.18.yml
+
+local_conf_header:
+  meta-erlang-rabbitmq: |
+    IMAGE_ROOTFS_EXTRA_SPACE = "256000"
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-rabbitmq"
+  qemu options: |
+    QB_MEM ?= "-m 1024"
+
+target:
+  - rabbitmq-image

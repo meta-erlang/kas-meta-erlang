@@ -1,0 +1,25 @@
+[doc Test if meta-erlang follows Yocto Project compatible checks]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+# TODO: add qemuarm64 back
+[global MACHINES=qemux86-64]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [loop machine $MACHINES]
+        [my config="poky.yml:$machine.yml"]
+        [progress $config]
+        [invoke kas-shell $config]
+
+        !yocto-check-layer /work/meta-erlang
+        ?INFO: meta-erlang ... PASS
+        [invoke wait-build-ok]
+
+        [progress $config :OK]
+
+        !exit
+        [invoke ok]
+    [endloop]

@@ -44,25 +44,29 @@ machines:
 * qemuarm
 * qemuarm64
 
-So, to use the above files the usual kas command line could be like one of the following:
+With so many kas fragment files it's hard to combine each file to make configurations. The best approach is to use kas with Kconfig menu.
 
-```bash
-KAS_WORK_DIR=build/honister KAS_BUILD_DIR=honister ~/work/opensource/kas/kas-container shell  erlang-maint-24.yml:elixir-1.12.yml:honister.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml
+A makefile called _menu_ exists to select what to build:
 
 ```
+make menu
+```
 
-Where, the environment variable _KAS\_WORK\_DIR_ points to a local directory where kas will clone the repositories and build.
+After, run:
 
-Using kas and the canned configuration files, we can cover most of the combinations provide by meta-erlang layer.
+```
+make shell
+```
 
-It is also possible to call _kas-container_ and run the YP/OE inside docker containers, like that:
+To enter in a new shell configured with the respective build configuration. After that it's only need to call the usual bitbake commands.
 
-```bash
-KAS_WORK_DIR=build KAS_BUILD_DIR=honister kas-container shell erlang-maint-24.yml:elixir-1.12.yml:honister.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+## Testing
 
-KAS_WORK_DIR=build KAS_BUILD_DIR=hardknott kas-container shell erlang-maint-24.yml:elixir-1.12.yml:hardknott.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+In the folder _lux/tests_ there are some [Lux](https://github.com/hawk/lux/tree/master) test cases with specific build configurations. These
+tests are pretty automatic. Run `make test` in order to run all lux test cases. Or select specific ones and run:
 
-KAS_WORK_DIR=build KAS_BUILD_DIR=dunfell kas-container shell erlang-maint-24.yml:elixir-1.12.yml:dunfell.yml:meta-erlang.yml:base.yml:qemuarm64.yml:local-dev.yml:local-image-install.yml
+```
+make test LUX_FILES=livebook.lux
 ```
 
 ## development

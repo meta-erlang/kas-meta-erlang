@@ -5,9 +5,10 @@ YOCTO_DIR := /data-work/yocto
 # From https://kas.readthedocs.io/en/latest/command-line.html#environment-variables
 export SSTATE_DIR := ${YOCTO_DIR}/sstate-cache/${YOCTO_RELEASE}
 export DL_DIR := ${YOCTO_DIR}/downloads
-export KAS_BUILD_DIR ?= ${ROOT_DIR}/build
+export KAS_BUILD_DIR ?= ${YOCTO_DIR}/builds/${YOCTO_RELEASE}
 
 KAS ?= ${HOME}/work/opensource/kas/kas-container
+RUN_KAS := run-kas
 
 ifeq (${UPDATE}, 1)
 	update = --update
@@ -36,7 +37,10 @@ shell: # Start a kas shell
 		 -p5900:5900  \
 		 -e DISPLAY=$${DISPLAY} \
 		 -v /tmp/.X11-unix:/tmp/.X11-unix" \
-		shell ${update}
+		 shell ${update}
+
+checkout:
+	${KAS} checkout
 
 shell-update: # Start a kas shell and update all repos
 	$(MAKE) shell UPDATE=1
@@ -46,3 +50,9 @@ shell-auh: # Start kas shell suitable for AUH
 
 setup-network:
 	sudo modprobe tap
+
+run-shell:
+	${RUN_KAS} shell
+
+test:
+	$(MAKE) -C lux/test

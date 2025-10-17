@@ -1,0 +1,14 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-28.yml
+
+local_conf_header:
+  meta-erlang-wings: |
+    # wings requires erlang-wx
+    PACKAGECONFIG:append:pn-erlang = " wx"
+    PACKAGECONFIG:append:pn-erlang-native = " wx"
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-wings"
+
+target:
+  - wings-image

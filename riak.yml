@@ -1,0 +1,15 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-25.yml
+
+local_conf_header:
+  meta-erlang-couchdb: |
+    IMAGE_ROOTFS_EXTRA_SPACE = "256000"
+    DISTRO_FEATURES:append = " pam"
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-riak"
+  qemu options: |
+    QB_MEM ?= "-m 1024"
+
+target:
+  - riak-image

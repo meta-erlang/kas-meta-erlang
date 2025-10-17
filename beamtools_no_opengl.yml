@@ -1,0 +1,6 @@
+header:
+  version: 10
+
+local_conf_header:
+  opengl beamtools: |
+    DISTRO_FEATURES_FILTER_NATIVESDK:remove = "opengl"

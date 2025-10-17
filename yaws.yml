@@ -1,0 +1,11 @@
+header:
+  version: 10
+  includes:
+    - erlang-maint-28.yml
+
+local_conf_header:
+  meta-erlang-yaws: |
+    TMPDIR = "${TOPDIR}/tmp-${TCLIBC}-yaws"
+
+target:
+  - yaws-image

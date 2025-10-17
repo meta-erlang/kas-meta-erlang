@@ -5,3 +5,6 @@ build
 build-*
 poky
 meta-*
+bitbake
+core
+lux_logs

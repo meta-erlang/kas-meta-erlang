@@ -1,0 +1,29 @@
+[doc Test if riak build and image is working]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+[global MACHINES=qemuarm64 qemux86-64]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [loop machine $MACHINES]
+        [my config="base.yml:release.yml:$machine.yml:systemd.yml:riak.yml:testimage.yml"]
+        [progress $config]
+        [invoke kas-shell $config]
+
+        !bitbake -c cleansstate riak-image
+        [invoke wait-build-ok]
+
+        !bitbake riak-image
+        [invoke wait-build-ok]
+
+        !bitbake -c testimage riak-image
+        [invoke wait-build-ok]
+
+        [progress $config :OK]
+        
+        !exit
+        [invoke ok]
+    [endloop]

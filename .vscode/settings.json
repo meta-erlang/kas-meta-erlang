@@ -15,8 +15,8 @@
         "**/oe-workdir/**": true,
         "**/sstate-cache/**": true,
         "**/tmp*/**": true,
-        "**/workspace/attic/**": true,
-        "**/workspace/sources/**": true
+        // "**/workspace/attic/**": true,
+        // "**/workspace/sources/**": true
     },
     "files.watcherExclude": {
         "**/.git/**": true,
@@ -56,13 +56,15 @@
         "${workspaceFolder}/sources/poky/meta/lib"
     ],
     "python.analysis.extraPaths": [
-        "poky/bitbake/lib",
-        "poky/meta/lib",
+        "./poky/meta/lib",
         "${workspaceFolder}/sources/poky/bitbake/lib",
         "${workspaceFolder}/sources/poky/meta/lib"
     ],
     "files.associations": {
         "*.conf": "bitbake",
         "*.inc": "bitbake"
-    }
+    },
+    "python.analysis.extraPaths": [
+        "./poky/meta/lib"
+    ]
 }

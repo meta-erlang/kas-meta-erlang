@@ -1,0 +1,30 @@
+
+[macro kas-prepare-env workdir]
+    !cd $workdir
+    [invoke ok]
+    !export SSTATE_DIR=${YOCTO_DIR}/sstate-cache/${YOCTO_RELEASE}
+    !export DL_DIR=${YOCTO_DIR}/downloads
+    !export KAS_BUILD_DIR=${YOCTO_DIR}/builds/${YOCTO_RELEASE}
+    !export NO_COLOR=1
+    [invoke ok]
+[endmacro]
+
+[macro kas-shell config]
+    [timeout 120]
+    [my tmp=$LUX_FAIL_PATTERN]
+    """!
+    $KAS --runtime-args \
+      "--mount src=/dev/kvm,dst=/dev/kvm,type=bind \
+       --mount src=/dev/vhost-net,dst=/dev/vhost-net,type=bind \
+       --device /dev/net/tun:/dev/net/tun \
+       --cap-add=NET_ADMIN \
+       --privileged" \
+      shell $KAS_SHELL_UPDATE $config
+    """
+    -==[1-9][0-9]*==
+    !echo ==$$?==
+    ?==0==
+    ?:/build\$
+    -$tmp
+    [timeout]
+[endmacro]

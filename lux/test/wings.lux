@@ -1,0 +1,31 @@
+[doc Test if wings build and image is working]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+# TODO: add qemuarm64 back
+[global MACHINES=qemuarm64]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [loop machine $MACHINES]
+        [my config="base.yml:release.yml:$machine.yml:systemd.yml:wings.yml"]
+        [progress $config]
+        [invoke kas-shell $config]
+
+        !bitbake -c cleansstate wings-image
+        [invoke wait-build-ok]
+
+        !bitbake wings-image
+        [invoke wait-build-ok]
+
+        # TODO
+        # !bitbake -c testimage wings-image
+        # [invoke build-ok]
+
+        [progress $config :OK]
+
+        !exit
+        [invoke ok]
+    [endloop]

@@ -1,0 +1,14 @@
+header:
+  version: 10
+
+local_conf_header:
+  locales for beamtools or beamruntime: |
+    ENABLE_BINARY_LOCALE_GENERATION = "1"
+    LOCALE_GENERATION_WITH_CROSS_LOCALEDEF = "1"
+    GLIBC_INTERNAL_USE_BINARY_LOCALE = "compile"
+
+    GLIBC_GENERATE_LOCALES = "en_US.UTF-8"
+    IMAGE_LINGUAS = "en-us"
+
+    LOCALE_UTF8_ONLY = "1"
+    LOCALE_UTF8_IS_DEFAULT = "1"
