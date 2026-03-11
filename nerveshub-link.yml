@@ -3,8 +3,6 @@ header:
   includes:
     - erlang-maint-28.yml
     - elixir-1.18.yml
-    - fwup.yml
-    - fwup-signed.yml
 
 repos:
   meta-nerves-hub:
@@ -26,9 +24,6 @@ local_conf_header:
         "
 
     PACKAGECONFIG:remove:pn-connman = "3g bluez"
-
-    IMAGE_CLASSES += "image_types_fwup"
-    IMAGE_FSTYPES = "fwup fwup.bmap"
 
     IMAGE_INSTALL:append = " ${NERVES_HUB_LINK} util-linux"
 

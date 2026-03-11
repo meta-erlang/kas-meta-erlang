@@ -1,0 +1,7 @@
+header:
+  version: 10
+
+repos:
+   meta-axon:
+    path: meta-axon
+    branch: master

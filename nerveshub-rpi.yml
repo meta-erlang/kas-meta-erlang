@@ -1,5 +1,8 @@
 header:
   version: 10
   includes:
+    - fwup.yml
+    - fwup-signed.yml
+    - fwup-raspberrypi.yml
     - nerveshub-link.yml
     - rpi.yml

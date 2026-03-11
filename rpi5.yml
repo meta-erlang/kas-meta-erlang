@@ -1,3 +1,6 @@
 header:
   version: 10
+  includes:
+    - rpi.yml
+
 machine: raspberrypi5

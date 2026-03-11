@@ -46,7 +46,7 @@ shell-update: # Start a kas shell and update all repos
 	$(MAKE) shell UPDATE=1
 
 shell-auh: # Start kas shell suitable for AUH	
-	KAS_BUILD_DIR=build-auh ${KAS} --runtime-args "--privileged" shell ${update}
+	KAS_BUILD_DIR=${KAS_BUILD_DIR}-auh ${KAS} --runtime-args "--privileged" shell ${update}
 
 setup-network:
 	sudo modprobe tap

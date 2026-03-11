@@ -1,5 +1,8 @@
 header:
   version: 10
   includes:
+    - fwup.yml
+    - fwup-signed.yml
+    - fwup-qemu.yml
     - nerveshub-link.yml
     - qemu-bsp.yml

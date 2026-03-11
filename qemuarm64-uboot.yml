@@ -1,7 +1,6 @@
 header:
   version: 10
-machine: qemuarm64-uboot
+  includes:
+    - qemu-bsp.yml
 
-local_conf_header:
-  with fwup image: |
-    IMAGE_FSTYPES += "fwup.qcow2"
+machine: qemuarm64-uboot

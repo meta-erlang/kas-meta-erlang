@@ -15,6 +15,11 @@ menuconfig BEAMRUNTIME
         help
           Help.
 
+config WITH_META_AXOM
+        bool "Add meta-axon for testing"
+          help
+            Help.
+
 if BEAMRUNTIME
 
 choice
@@ -115,11 +120,6 @@ menu "Machine"
 choice
 	prompt "Machine"
 	default MACHINE_QEMUX86_64
-
-config MACHINE_QEMU_BSP
-        bool "Use qemu-bsp machines"
-        help
-          Help.
 
 config MACHINE_QEMUX86_64
 	bool "Use qemux86-64"
@@ -298,6 +298,32 @@ endmenu
 
 endif # ! IMAGES
 
+menu "fwup feature"
+
+config WITH_FWUP_IMAGE
+        bool "Add fwup image support"
+        depends on !TARGET_NERVESHUB_RPI_IMAGE
+        depends on !TARGET_NERVESHUB_QEMU_IMAGE
+        help
+          Help.
+
+config WITH_SIGNED_FWUP_IMAGE
+        bool "Add signed fwup image support"
+        depends on !TARGET_NERVESHUB_RPI_IMAGE
+        depends on !TARGET_NERVESHUB_QEMU_IMAGE
+        help
+          Help.
+
+endmenu
+
+config KAS_INCLUDE_FWUP
+        string
+        default "fwup.yml" if WITH_FWUP_IMAGE
+
+config KAS_INCLUDE_SIGNED_FWUP_IMAGE
+        string
+        default "fwup-signed.yml" if WITH_SIGNED_FWUP_IMAGE
+
 menuconfig IMAGES
        bool "Images"
        help
@@ -306,16 +332,6 @@ menuconfig IMAGES
 if IMAGES
 
 menu "Image features"
-
-config WITH_FWUP_IMAGE
-        bool "Add fwup image support"
-        help
-          Help.
-
-config WITH_SIGNED_FWUP_IMAGE
-        bool "Add signed fwup image support"
-          help
-            Help.
 
 config TARGET_PTEST_IMAGE
         bool "Image with ptest packages"
@@ -428,9 +444,21 @@ config KAS_INCLUDE_MACHINE
         default "rpi0.yml" if MACHINE_RPI0
         default "rpi4-64.yml" if MACHINE_RPI4_64
         default "rpi5.yml" if MACHINE_RPI5
-        default "qemu-bsp.yml" if MACHINE_QEMU_BSP
         default "qemuarm-uboot.yml" if MACHINE_QEMUARM_UBOOT
         default "qemuarm64-uboot.yml" if MACHINE_QEMUARM64_UBOOT
+
+config KAS_INCLUDE_FWUP_QEMU
+        string
+        depends on WITH_FWUP_IMAGE
+        default "fwup-qemu.yml" if MACHINE_QEMUARM_UBOOT
+        default "fwup-qemu.yml" if MACHINE_QEMUARM64_UBOOT
+
+config KAS_INCLUDE_FWUP_RPI
+        string
+        depends on WITH_FWUP_IMAGE
+        default "fwup-raspberrypi.yml" if MACHINE_RPI0
+        default "fwup-raspberrypi.yml" if MACHINE_RPI4_64
+        default "fwup-raspberrypi.yml" if MACHINE_RPI5
 
 if ! IMAGES
 
@@ -478,14 +506,6 @@ config KAS_INCLUDE_NERVESHUB_RPI_IMAGE
         string
         default "nerveshub-rpi.yml" if TARGET_NERVESHUB_RPI_IMAGE
 
-config KAS_INCLUDE_FWUP
-        string
-        default "fwup.yml" if WITH_FWUP_IMAGE
-
-config KAS_INCLUDE_SIGNED_FWUP_IMAGE
-        string
-        default "fwup-signed.yml" if WITH_SIGNED_FWUP_IMAGE
-
 config KAS_INCLUDE_ERLANG_ELIXIR
         string
         default "erlang-elixir.yml" if TARGET_ERLANG_ELIXIR_IMAGE
@@ -517,14 +537,6 @@ config KAS_INCLUDE_YAWS
 config KAS_INCLUDE_WINGS
         string
         default "wings.yml" if TARGET_WINGS_IMAGE
-
-config KAS_INCLUDE_NERVESHUB_QEMU_IMAGE
-        string
-        default "nerveshub-link.yml" if TARGET_NERVESHUB_QEMU_IMAGE
-
-config KAS_INCLUDE_NERVESHUB_RPI_IMAGE
-        string
-        default "nerveshub-link.yml" if TARGET_NERVESHUB_RPI_IMAGE
 
 endif
 
@@ -597,5 +609,13 @@ if ERLANG_AND_ELIXIR
 config KAS_INCLUDE_ERLANG_AND_ELIXIR
         string
         default "meta-erlang.yml"
+
+endif
+
+if WITH_META_AXOM
+
+config KAS_INCLUDE_AXOM
+        string
+        default "axom.yml"
 
 endif
