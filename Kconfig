@@ -220,10 +220,15 @@ menu "Erlang Version"
 
 choice
 	prompt "Erlang/OTP version"
-	default ERLANG_MAINT_28
+	default ERLANG_MAINT_29
 
 config ERLANG_MASTER
 	bool "Use Erlang master"
+	help
+	  Help.
+
+config ERLANG_MAINT_29
+	bool "Use Erlang 29"
 	help
 	  Help.
 
@@ -468,6 +473,7 @@ config KAS_INCLUDE_ERLANG
 	default "erlang-maint-26.yml" if ERLANG_MAINT_26
 	default "erlang-maint-27.yml" if ERLANG_MAINT_27
 	default "erlang-maint-28.yml" if ERLANG_MAINT_28
+	default "erlang-maint-29.yml" if ERLANG_MAINT_29
 	default "erlang-master.yml" if ERLANG_MASTER
 
 config KAS_INCLUDE_ELIXIR

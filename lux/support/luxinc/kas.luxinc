@@ -4,7 +4,7 @@
     [invoke ok]
     !export SSTATE_DIR=${YOCTO_DIR}/sstate-cache/${YOCTO_RELEASE}
     !export DL_DIR=${YOCTO_DIR}/downloads
-    !export KAS_BUILD_DIR=${YOCTO_DIR}/builds/${YOCTO_RELEASE}
+    !export KAS_BUILD_DIR=${YOCTO_DIR}/builds/${YOCTO_RELEASE}-test
     !export NO_COLOR=1
     [invoke ok]
 [endmacro]

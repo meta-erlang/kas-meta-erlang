@@ -1,23 +1,23 @@
 # Call bitbake to build erlang and elixir recipes.
 [macro build-beam workdir config]
-    [my recipes=erlang-native erlang nativesdk-erlang elixir-native elixir nativesdk-elixir beam-image]
+    [my recipes=erlang-native erlang elixir-native elixir beam-image]
 
     [invoke kas-shell $config]
 
     !export NO_COLOR=1
     [invoke build-ok]
 
-    !bitbake -c cleansstate $recipes
+    !bitbake -qq -c cleansstate $recipes
     [invoke wait-build-ok]
 
-    !bitbake $recipes
+    !bitbake -qq $recipes
     [invoke wait-build-ok]
 
-    !bitbake -c build beam-image
-    [invoke build-ok]
+    !bitbake -qq -c build beam-image
+    [invoke wait-build-ok]
 
     !bitbake -c testimage beam-image
-    [invoke build-ok]
+    [invoke wait-build-ok]
 
     !exit 0
     [invoke ok]

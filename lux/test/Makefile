@@ -3,6 +3,8 @@
 LUX_OPTIONS +=
 LUX_FILES ?= .
 
+LUX_FILES_ERLANG = "beam_otp_26_ex_118.lux beam_otp_27_ex_118.lux beam_otp_28_ex_118.lux beam_otp_29_ex_118.lux"
+
 .PHONY: help
 .DEFAULT_GOAL := help
 
@@ -10,6 +12,9 @@ all: test
 
 test: ## Run lux test scripts. LUX_FILES variable can be used to run specific scripts.
 	lux --config_dir ../support/luxcfg --progress=summary $(LUX_OPTIONS) $(LUX_FILES)
+
+test-erlang: ## Run lux test for all supported erlang versions.
+	$(MAKE) test LUX_FILES=$(LUX_FILES_ERLANG)
 
 rerun: ## Rerun lux test scripts.
 	$(MAKE) test LUX_OPTIONS="--rerun=fail"
