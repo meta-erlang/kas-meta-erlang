@@ -1,5 +1,5 @@
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-YOCTO_RELEASE := master
+YOCTO_RELEASE := wrynose
 YOCTO_DIR := /data-work/yocto
 
 # From https://kas.readthedocs.io/en/latest/command-line.html#environment-variables
