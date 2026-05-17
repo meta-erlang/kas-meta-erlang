@@ -247,11 +247,6 @@ config ERLANG_MAINT_26
 	help
 	  Help.
 
-config ERLANG_MAINT_25
-	bool "Use Erlang 25"
-	help
-	  Help.
-
 endchoice
 
 endmenu
@@ -260,10 +255,15 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_18
+	default ELIXIR_1_19
 
 config ELIXIR_MAIN
         bool "Use Elixir development"
+        help
+          Help.
+
+config ELIXIR_1_19
+        bool "Use Elixir 1.19.x"
         help
           Help.
 
@@ -469,7 +469,6 @@ if ! IMAGES
 
 config KAS_INCLUDE_ERLANG
 	string
-	default "erlang-maint-25.yml" if ERLANG_MAINT_25
 	default "erlang-maint-26.yml" if ERLANG_MAINT_26
 	default "erlang-maint-27.yml" if ERLANG_MAINT_27
 	default "erlang-maint-28.yml" if ERLANG_MAINT_28
@@ -479,6 +478,7 @@ config KAS_INCLUDE_ERLANG
 config KAS_INCLUDE_ELIXIR
 	string
 	default "elixir-main.yml" if ELIXIR_MAIN
+        default "elixir-1.19.yml" if ELIXIR_1_19
 	default "elixir-1.18.yml" if ELIXIR_1_18
 	default "elixir-1.17.yml" if ELIXIR_1_17
 	default "elixir-1.16.yml" if ELIXIR_1_16

@@ -3,12 +3,15 @@
 [include ../support/luxinc/utils.luxinc]
 [include ../support/luxinc/kas.luxinc]
 
-[global beamtools_cfg="base.yml:release.yml:qemuarm64.yml:erlang-maint-28.yml:elixir-1.18.yml:beamtools.yml:beamtools_x86_64.yml:beamtools_opengl.yml"]
+[global beamtools_cfg="base.yml:release.yml:qemuarm64.yml:erlang-maint-29.yml:elixir-1.19.yml:beamtools.yml:beamtools_x86_64.yml:beamtools_opengl.yml"]
 
 [shell cmd]
     [invoke kas-prepare-env "../../"]
 
     [invoke kas-shell $beamtools_cfg]
+
+    !bitbake beamtools-tarball -c cleansstate
+    [invoke wait-build-ok]
 
     !bitbake beamtools-tarball
     [invoke wait-build-ok]

@@ -2,4 +2,4 @@ header:
   version: 10
 local_conf_header:
   meta-erlang-elixir: |
-    ELIXIR_VERSION = "1.14.4"
+    ELIXIR_VERSION = "1.19.5"

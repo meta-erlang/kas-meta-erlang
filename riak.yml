@@ -1,7 +1,7 @@
 header:
   version: 10
   includes:
-    - erlang-maint-25.yml
+    - erlang-maint-26.yml
 
 local_conf_header:
   meta-erlang-couchdb: |

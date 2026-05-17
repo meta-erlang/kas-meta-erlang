@@ -1,7 +1,7 @@
 header:
   version: 10
   includes:
-    - elixir-1.18.yml
+    - elixir-1.19.yml
     - erlang-maint-28.yml
 
 local_conf_header:

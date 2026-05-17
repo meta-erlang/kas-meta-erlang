@@ -27,6 +27,13 @@ local_conf_header:
   sdk machine config: |
     SDKMACHINE ?= "x86_64"
 
+  hash:
+    BB_HASHSERVE_DB_DIR = "${SSTATE_DIR}"
+
   remove version-going-backwards: |
     # not relevant for meta-erlang tests
     ERROR_QA:remove = "version-going-backwards"
+
+  only use specific version for erlang and elixir: |
+    BBMASK:append = " ${@'/erlang_(?!' + d.getVar('ERLANG_VERSION').replace('.', '\.') + ')[^/]*\.bb$'}"
+    BBMASK:append = " ${@'/elixir_(?!' + d.getVar('ELIXIR_VERSION').replace('.', '\.') + ')[^/]*\.bb$'}"
