@@ -2,4 +2,4 @@ header:
   version: 10
 local_conf_header:
   meta-erlang-erlang: |
-    ERLANG_VERSION = "28.5"
+    ERLANG_VERSION = "28.5.0.6"
