@@ -7,7 +7,7 @@ header:
 repos:
   meta-nerves-hub:
     url: "git@github.com:joaohf/meta-nerves-hub"
-    branch: master
+    branch: wrynose
 
 local_conf_header:
   nerveshub link config: |

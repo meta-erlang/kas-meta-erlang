@@ -7,6 +7,6 @@ local_conf_header:
 repos:
   meta-fwup:
     url: "https://github.com/fwup-home/meta-fwup/"
-    branch: master
+    branch: wrynose
     layers:
       meta-fwup-raspberrypi:

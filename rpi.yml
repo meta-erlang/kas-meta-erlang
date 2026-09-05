@@ -4,7 +4,7 @@ header:
 repos:
   meta-raspberrypi:
     url: "https://github.com/agherzan/meta-raspberrypi"
-    branch: master
+    branch: wrynose
 
 local_conf_header:
   local rpi configuration: |

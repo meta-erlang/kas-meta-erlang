@@ -255,10 +255,15 @@ menu "Elixir Version"
 
 choice
 	prompt "Elixir version"
-	default ELIXIR_1_19
+	default ELIXIR_1_20
 
 config ELIXIR_MAIN
         bool "Use Elixir development"
+        help
+          Help.
+
+config ELIXIR_1_20
+        bool "Use Elixir 1.20.x"
         help
           Help.
 
@@ -478,6 +483,7 @@ config KAS_INCLUDE_ERLANG
 config KAS_INCLUDE_ELIXIR
 	string
 	default "elixir-main.yml" if ELIXIR_MAIN
+        default "elixir-1.20.yml" if ELIXIR_1_20
         default "elixir-1.19.yml" if ELIXIR_1_19
 	default "elixir-1.18.yml" if ELIXIR_1_18
 	default "elixir-1.17.yml" if ELIXIR_1_17

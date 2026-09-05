@@ -4,4 +4,4 @@ header:
 repos:
   meta-qemu-bsp:
     url: "https://github.com/meta-erlang/meta-qemu-bsp/"
-    branch: master
+    branch: wrynose

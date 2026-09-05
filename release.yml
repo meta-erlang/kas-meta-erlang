@@ -2,35 +2,35 @@ header:
   version: 10
 distro: poky
 local_conf_header:
-  master: |
+  wrynose: |
 repos:
   bitbake:
     url: https://git.openembedded.org/bitbake
-    branch: master
+    branch: "2.18"
     layers:
       bitbake: disabled
 
   core:
     url: https://git.openembedded.org/openembedded-core
-    branch: master
+    branch: wrynose
     layers:
       meta:
 
   meta-yocto:
     url: https://git.yoctoproject.org/meta-yocto
-    branch: master
+    branch: wrynose
     layers:
       meta-poky:
       meta-yocto-bsp:
 
   meta-erlang:
-    #url: "https://github.com/meta-erlang/meta-erlang"
-    path: meta-erlang
-    branch: master
+    url: "https://github.com/meta-erlang/meta-erlang"
+    #path: meta-erlang
+    branch: wrynose
 
   meta-openembedded:
     url: http://git.openembedded.org/meta-openembedded
-    branch: master
+    branch: wrynose
     layers:
       meta-oe:
       meta-python:
