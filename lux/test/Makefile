@@ -3,7 +3,7 @@
 LUX_OPTIONS +=
 LUX_FILES ?= .
 
-LUX_FILES_ERLANG = "beam_otp_26_ex_118.lux beam_otp_27_ex_118.lux beam_otp_28_ex_118.lux beam_otp_29_ex_118.lux"
+LUX_FILES_ERLANG = "beam_otp_29_ex_118.lux beam_otp_28_ex_118.lux beam_otp_27_ex_118.lux beam_otp_26_ex_118.lux"
 
 .PHONY: help
 .DEFAULT_GOAL := help

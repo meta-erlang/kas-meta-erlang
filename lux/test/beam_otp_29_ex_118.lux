@@ -5,7 +5,7 @@
 [include ../support/luxinc/meta_erlang.luxinc]
 
 [global OTP=29]
-[global ELIXIR=1.18]
+[global ELIXIR=1.20]
 [global MACHINES=qemuarm64 qemux86-64]
 [global WORKDIR=../../]
 

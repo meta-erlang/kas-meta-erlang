@@ -1,0 +1,42 @@
+[doc Build recipe-examples]
+
+[include ../support/luxinc/utils.luxinc]
+[include ../support/luxinc/kas.luxinc]
+
+[global ERLANG_VERSION=29]
+[global ELIXIR_VERSION=1.20]
+[global MACHINE=qemuarm64]
+
+[macro run-example machine erlang_version elixir_version recipe]
+    [my config="base.yml:release.yml:$machine.yml:systemd.yml:erlang-maint-$erlang_version.yml:elixir-$elixir_version.yml"]
+    [progress Building recipe $recipe with erlang $erlang_version elixir $elixir_version]
+    [invoke kas-shell $config]
+
+    [progress building recipe $recipe]
+    !bitbake -qqq -c cleansstate $recipe
+    [invoke wait-build-ok]
+    !bitbake -qqq $recipe
+    [invoke wait-build-ok]
+
+    [progress $config :OK]
+    !exit
+    [invoke ok]
+[endmacro]
+
+[shell cmd]
+    [invoke kas-prepare-env "../../"]
+
+    [invoke run-example $MACHINE 27 1.18 atomvm-examples-system-info]
+
+    # https://github.com/meta-erlang/hello-world
+
+    # [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-http-server]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-phoenix]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-erlang-interoperability]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-erlang-c-node]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-erlang-autoconf]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-elixir-rustler]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-elixir-interoperability]
+    [invoke run-example $MACHINE $ERLANG_VERSION $ELIXIR_VERSION hello-gleam-echo-server]
+
+

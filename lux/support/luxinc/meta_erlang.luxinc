@@ -4,9 +4,6 @@
 
     [invoke kas-shell $config]
 
-    !export NO_COLOR=1
-    [invoke build-ok]
-
     !bitbake -qq -c cleansstate $recipes
     [invoke wait-build-ok]
 
